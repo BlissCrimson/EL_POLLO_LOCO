@@ -1,0 +1,4 @@
+# Diese Datei darf NICHT gelöscht werden. 
+
+User-agent: *
+Disallow: /
