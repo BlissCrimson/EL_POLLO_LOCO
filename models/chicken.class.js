@@ -1,5 +1,7 @@
 class Chicken extends MovableObject {
-    y = 300;
+    y = 380;
+    width = 50;
+    height = 50;
     // TODO folgendes function musst add:
     // [ ] function walk()
     // [ ] function eat()
