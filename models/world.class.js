@@ -4,6 +4,7 @@ class World {
         new Chicken(),
         new Chicken(),
         new Chicken(),
+        new ChickenSmall(),
     ];
     clouds = [
         new Cloud()
@@ -17,7 +18,12 @@ class World {
         // new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png'),
         // new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png'),
         // new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png')
-    ]
+    ];
+    statusbar = [
+        new StatusBottles('assets/img/7_statusbars/3_icons/icon_salsa_bottle.png'),
+        new StatusHealth('assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'),
+        new StatusCoins('assets/img/7_statusbars/3_icons/icon_coin.png'),
+    ];
     canvas;
     ctx;
 
@@ -31,14 +37,20 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.addObjectsToMap(this.backgroundObjects);
-        this.addToMap(this.character);
         this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.statusbar)
         this.addObjectsToMap(this.enemies);
+        this.addToMap(this.character);
 
+        // wird in cloud.class.js über die funxtion animate() erledigt.
+        // this.clouds.forEach(clouds => {
+        //     clouds.moveCloud();
+        // });
 
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
+
         });
     }
 
