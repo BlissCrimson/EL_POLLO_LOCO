@@ -37,6 +37,7 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/5_dead/D-57.png'
     ];
     currentImage = 0;
+    world;
 
     constructor() {
         super().loadImage('assets/img/2_character_pepe/2_walk/W-21.png');
@@ -48,11 +49,13 @@ class Character extends MovableObject {
     animate() {
 
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 7 % 6; => 1, Rest 1
-            // i = 0, 1, 2, 3, 4, 5, 0
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+            if (this.world.keyboard.RIGHT || this.world.keyboard.D) {
+                let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 7 % 6; => 1, Rest 1
+                // i = 0, 1, 2, 3, 4, 5, 0
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
         }, 6000 / 60);
     }
 
