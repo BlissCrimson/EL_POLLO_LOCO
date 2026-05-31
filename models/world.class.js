@@ -27,6 +27,7 @@ class World {
     canvas;
     ctx;
     keyboard;
+    camera_x = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -44,16 +45,16 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        this.ctx.translate(this.camera_x, 0);
+
         this.addObjectsToMap(this.backgroundObjects);
+
+        this.addToMap(this.character);
         this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.statusbar)
         this.addObjectsToMap(this.enemies);
-        this.addToMap(this.character);
 
-        // wird in cloud.class.js über die funxtion animate() erledigt.
-        // this.clouds.forEach(clouds => {
-        //     clouds.moveCloud();
-        // });
+        this.ctx.translate(-this.camera_x, 0);
 
         let self = this;
         requestAnimationFrame(function () {
@@ -69,6 +70,14 @@ class World {
     }
 
     addToMap(mo) {
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        if (mo.otherDirection) {
+            this.ctx.save();
+            this.ctx.translate(mo.x + mo.width, 0);
+            this.ctx.scale(-1, 1);
+        }
+        this.ctx.drawImage(mo.img, mo.otherDirection ? 0 : mo.x, mo.y, mo.width, mo.height);
+        if (mo.otherDirection) {
+            this.ctx.restore();
+        }
     }
 }

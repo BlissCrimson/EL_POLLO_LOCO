@@ -16,15 +16,10 @@ const keyMap = {
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
-    console.log('My Character is', world.character);
 }
 
 window.addEventListener("keydown", (e) => {
     keyboard[keyMap[e.key]] = true;
-    console.log(keyMap[e.key]);
-    console.log(keyboard);
-
 });
 
 window.addEventListener("keyup", (e) => {
