@@ -10,14 +10,28 @@ class World {
         new Cloud()
     ];
     backgroundObjects = [
-        new BackgroundObject('assets/img/5_background/layers/air.png'),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png'),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png'),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png'),
-        //    INFO 
-        // new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png'),
-        // new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png'),
-        // new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png')
+        new BackgroundObject('assets/img/5_background/layers/air.png', -720),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', -720),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', -720),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', -720),
+
+        new BackgroundObject('assets/img/5_background/layers/air.png', 0),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0),
+        new BackgroundObject('assets/img/5_background/layers/air.png', 719),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 719),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719),
+
+        new BackgroundObject('assets/img/5_background/layers/air.png', 0),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0),
+        new BackgroundObject('assets/img/5_background/layers/air.png', 719),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 719),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719)
     ];
     statusbar = [
         new StatusBottles('assets/img/7_statusbars/3_icons/icon_salsa_bottle.png'),
