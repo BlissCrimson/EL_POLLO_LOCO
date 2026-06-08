@@ -1,8 +1,7 @@
 class World {
-    character;
-    enemies = level1.enemies;
-    clouds = level1.clouds;
-    backgroundObjects = level1.backgroundObjects;
+    character = new Character();
+    level = level1;
+
     // statusbar = [
     //     new StatusBottles('assets/img/7_statusbars/3_icons/icon_salsa_bottle.png'),
     //     new StatusHealth('assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'),
@@ -14,13 +13,11 @@ class World {
     camera_x = 0;
 
     constructor(canvas, keyboard) {
-        this.character = new Character();
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.setWorld();
         this.draw();
-
     }
 
     setWorld() {
@@ -32,12 +29,12 @@ class World {
 
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.level.backgroundObjects);
 
         this.addToMap(this.character);
-        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.level.clouds);
         // this.addObjectsToMap(this.statusbar)
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.enemies);
 
         this.ctx.translate(-this.camera_x, 0);
 

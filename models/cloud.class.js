@@ -17,10 +17,7 @@ class Cloud extends MovableObject {
 
     animate() {
         this.moveLeft();
-        let i = this.currentImage % this.IMAGES_CLOUDS.length;
-        let path = this.IMAGES_CLOUDS[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+        this.playAnimation(this.IMAGES_CLOUDS);
     }
 
     // wird übe animate gemacht.
