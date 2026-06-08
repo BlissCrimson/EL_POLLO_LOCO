@@ -2,11 +2,11 @@ class World {
     character = new Character();
     level = level1;
 
-    // statusbar = [
-    //     new StatusBottles('assets/img/7_statusbars/3_icons/icon_salsa_bottle.png'),
-    //     new StatusHealth('assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'),
-    //     new StatusCoins('assets/img/7_statusbars/3_icons/icon_coin.png'),
-    // ];
+    statusbar = [
+        new StatusBottles('assets/img/7_statusbars/3_icons/icon_salsa_bottle.png'),
+        new StatusHealth('assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'),
+        new StatusCoins('assets/img/7_statusbars/3_icons/icon_coin.png'),
+    ];
     canvas;
     ctx;
     keyboard;
@@ -33,7 +33,7 @@ class World {
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
-        // this.addObjectsToMap(this.statusbar)
+        this.addObjectsToMap(this.statusbar)
         this.addObjectsToMap(this.level.enemies);
 
         this.ctx.translate(-this.camera_x, 0);
