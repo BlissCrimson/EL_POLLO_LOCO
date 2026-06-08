@@ -32,6 +32,10 @@ class MovableObject {
         console.log('Moving right');
     }
 
+    /**
+     * 
+     * @param {string} images 
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
