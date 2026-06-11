@@ -46,7 +46,7 @@ class MovableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken||this instanceof ChickenSmall|| this instanceof ChickenBoss) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof ChickenBoss) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
@@ -54,6 +54,19 @@ class MovableObject {
             ctx.stroke();
         }
     }
+
+    // character.isColliding(chicken);
+    isColliding(mo) {
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height
+    }
+    //     if(character.x + character.width > chicken.x &&
+    //         character.y + character.height > chicken.y &&
+    //         character.x < chicken.x &&
+    //         character.y < chicken.y + chicken.height
+    // ) { }
 
     moveRight() {
         this.x += this.speed;

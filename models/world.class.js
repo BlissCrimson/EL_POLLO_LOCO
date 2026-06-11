@@ -17,12 +17,24 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.setWorld();
         this.draw();
+        this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld() {
         this.character.world = this;
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    console.log('Collission with Chracter', enemy);
+                    lostHealth();
+                }
+            })
+        }, 1000)
     }
 
     draw() {
@@ -69,11 +81,11 @@ class World {
         this.ctx.save();
         this.ctx.translate(mo.x + mo.width, 0);
         this.ctx.scale(-1, 1);
-        
+
     }
 
     flipImageBack(mo) {
-        
+
         this.ctx.restore();
     }
 }
