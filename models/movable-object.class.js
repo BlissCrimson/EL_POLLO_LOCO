@@ -1,4 +1,4 @@
-class MovableObject {
+class MovableObject extends DrawableObject {
     img;
     x = 120;
     y = 320;
@@ -10,6 +10,8 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    energy = 100;
+    lastHit = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -62,11 +64,25 @@ class MovableObject {
             this.x < mo.x &&
             this.y < mo.y + mo.height
     }
-    //     if(character.x + character.width > chicken.x &&
-    //         character.y + character.height > chicken.y &&
-    //         character.x < chicken.x &&
-    //         character.y < chicken.y + chicken.height
-    // ) { }
+
+    hit() {
+        this.energy -= 10
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isDead() {
+        return this.energy == 0;
+    }
+
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit; // Differenz in ms
+        timepassed = timepassed / 1000; //Differenz in s
+        return timepassed < 1;
+    }
 
     moveRight() {
         this.x += this.speed;
@@ -86,5 +102,11 @@ class MovableObject {
     moveLeft() {
         this.x -= this.speed;
         this.otherDirection = true;
+    }
+    characterDead(images) {
+        let i = this.currentImage % images.length
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
     }
 }

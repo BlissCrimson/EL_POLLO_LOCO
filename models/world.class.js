@@ -31,7 +31,8 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     console.log('Collission with Chracter', enemy);
-                    lostHealth();
+                    this.character.hit();
+                    console.log('Collission with Chracter energy', this.character.energy);
                 }
             })
         }, 1000)
@@ -85,7 +86,6 @@ class World {
     }
 
     flipImageBack(mo) {
-
         this.ctx.restore();
     }
 }
