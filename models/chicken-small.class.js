@@ -24,7 +24,7 @@ class ChickenSmall extends MovableObject {
     }
 
     animate() {
-        this.moveLeft();
+        this.walk();
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
@@ -32,7 +32,10 @@ class ChickenSmall extends MovableObject {
     }
 
     walk() {
-
+        setInterval(() => {
+            this.moveLeft();
+            this.otherDirection = false;
+        }, 1000 / 60);
     }
     eat() {
 

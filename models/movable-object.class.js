@@ -8,6 +8,21 @@ class MovableObject {
     currentImage = 0;
     speed = 1;
     otherDirection = false;
+    speedY = 0;
+    acceleration = 2.5;
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25);
+    }
+
+    isAboveGround() {
+        return this.y < 215;
+    }
 
     loadImage(path) {
         this.img = new Image(); // this.img = document.getElementBy ID('image') <img id="image">
@@ -24,12 +39,25 @@ class MovableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
+    }
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.otherDirection ? 0 : this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken||this instanceof ChickenSmall|| this instanceof ChickenBoss) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.otherDirection ? 0 : this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
     }
 
     moveRight() {
-        this.move;
-        console.log('Moving right');
+        this.x += this.speed;
+        this.otherDirection = false;
     }
 
     /**
@@ -43,9 +71,7 @@ class MovableObject {
         this.currentImage++;
     }
     moveLeft() {
-        setInterval(() => {
-
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
+        this.otherDirection = true;
     }
 }
