@@ -39,7 +39,20 @@ class MovableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
+    }
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.otherDirection ? 0 : this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken||this instanceof ChickenSmall|| this instanceof ChickenBoss) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.otherDirection ? 0 : this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
     }
 
     moveRight() {
