@@ -1,4 +1,4 @@
-class StatusbarObjects {
+class StatusbarObjects extends MovableObject {
     img;
     x = 0;
     y = 0;
