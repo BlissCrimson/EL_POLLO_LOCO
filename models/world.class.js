@@ -11,6 +11,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    camera_y = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -58,6 +59,12 @@ class World {
             this.ctx.scale(-1, 1);
         }
         this.ctx.drawImage(mo.img, mo.otherDirection ? 0 : mo.x, mo.y, mo.width, mo.height);
+        this.ctx.beginPath();
+        this.ctx.lineWidth = '5';
+        this.ctx.strokeStyle = 'blue';
+        this.ctx.rect(mo.x, mo.y, this.camera_x + mo.x + mo.width, this.camera_y + mo.y + mo.height);
+        this.ctx.stroke();
+
         if (mo.otherDirection) {
             this.ctx.restore();
         }

@@ -16,12 +16,13 @@ class Cloud extends MovableObject {
     }
 
     animate() {
-        this.moveLeft();
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+        // setInterval(() => {
+        //     this.playAnimation(this.IMAGES_WALKING);
+        // }, 6000 / 60);
+
         this.playAnimation(this.IMAGES_CLOUDS);
     }
-
-    // wird übe animate gemacht.
-    // moveCloud() {
-    //     this.x = this.x - 1;
-    // }
 }

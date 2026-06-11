@@ -1,6 +1,7 @@
 class Character extends MovableObject {
     x = 64;
-    y = 280;
+    // y = 215;
+    y = 80;
     width = 112;
     height = 220;
     speed = 5;
@@ -12,7 +13,7 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/2_walk/W-25.png',
         'assets/img/2_character_pepe/2_walk/W-26.png'
     ];
-    IMAGES_JUMP = [
+    IMAGES_JUMPING = [
         'assets/img/2_character_pepe/3_jump/J-31.png',
         'assets/img/2_character_pepe/3_jump/J-32.png',
         'assets/img/2_character_pepe/3_jump/J-33.png',
@@ -43,7 +44,11 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
-        this.y = 430 - this.height
+        this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
+        // this.y = 430 - this.height
+        this.applyGravity();
         this.animate();
         this.playAnimation(this.IMAGES_WALKING);
     }
@@ -52,24 +57,41 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.D && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
+                this.moveRight();
+                // this.walking_sound.play();
             }
             if (this.world.keyboard.LEFT || this.world.keyboard.A && this.x > 0) {
-                this.x -= this.speed;
-                this.otherDirection = true;
+                this.moveLeft();
+                // this.walking_sound.play();
+            } if (this.world.keyboard.UP || this.world.keyboard.SPACE || this.world.keyboard.W && !this.isAboveGround()) {
+                this.jump();
             }
+
+            this.attack();
+
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.D || this.world.keyboard.LEFT || this.world.keyboard.A) {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-        }, 6000 / 60);
+        this.renderImages();
     }
 
     jump() {
+        this.speedY = 30;
+        // this.jumping_sound.play();
+    }
 
+    attack() {
+        if (this.world.keyboard.DOWN || this.world.keyboard.S) {
+
+        }
+    }
+    renderImages() {
+        setInterval(() => {
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.D || this.world.keyboard.LEFT || this.world.keyboard.A) {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+        }, 6000 / 60);
     }
 }
