@@ -1,7 +1,7 @@
-class StatusBoss extends StatusbarObjects {
-    width = 200;
+// class StatusBoss extends StatusbarObjects {
+//     width = 200;
 
-    constructor(imagePath) {
-        super().loadImage(imagePath);
-    }
-}
+//     constructor(imagePath) {
+//         super().loadImage(imagePath);
+//     }
+// }

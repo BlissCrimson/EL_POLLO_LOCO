@@ -2,11 +2,7 @@ class World {
     character = new Character();
     level = level1;
 
-    statusbar = [
-        new StatusBottles('assets/img/7_statusbars/3_icons/icon_salsa_bottle.png'),
-        new StatusHealth('assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'),
-        new StatusCoins('assets/img/7_statusbars/3_icons/icon_coin.png'),
-    ];
+    statusbar = new StatusBar();
     canvas;
     ctx;
     keyboard;
@@ -17,12 +13,27 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.setWorld();
         this.draw();
+        this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld() {
         this.character.world = this;
+        this.character.animate();
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    console.log('Collission with Chracter', enemy);
+                    this.character.hit();
+                    this.statusbar.setPercentage(this.character.energy);
+                    console.log('Collission with Chracter energy', this.character.energy);
+                }
+            })
+        }, 1000)
     }
 
     draw() {
@@ -34,7 +45,12 @@ class World {
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.statusbar)
+
+        this.ctx.translate(-this.camera_x, 0);
+        // Space for fixed objects.
+        this.addToMap(this.statusbar)
+        this.ctx.translate(this.camera_x, 0);
+
         this.addObjectsToMap(this.level.enemies);
 
         this.ctx.translate(-this.camera_x, 0);
@@ -69,11 +85,10 @@ class World {
         this.ctx.save();
         this.ctx.translate(mo.x + mo.width, 0);
         this.ctx.scale(-1, 1);
-        
+
     }
 
     flipImageBack(mo) {
-        
         this.ctx.restore();
     }
 }

@@ -49,7 +49,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         // this.y = 430 - this.height
         this.applyGravity();
-        this.animate();
+        // this.animate();
         this.playAnimation(this.IMAGES_WALKING);
     }
 
@@ -63,11 +63,12 @@ class Character extends MovableObject {
             if (this.world.keyboard.LEFT || this.world.keyboard.A && this.x > 0) {
                 this.moveLeft();
                 // this.walking_sound.play();
-            } if (this.world.keyboard.UP || this.world.keyboard.SPACE || this.world.keyboard.W && !this.isAboveGround()) {
+            }
+            if (this.world.keyboard.UP || this.world.keyboard.SPACE || this.world.keyboard.W && !this.isAboveGround()) {
                 this.jump();
             }
 
-            this.attack();
+            // this.attack();
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
@@ -80,17 +81,25 @@ class Character extends MovableObject {
         // this.jumping_sound.play();
     }
 
-    attack() {
-        if (this.world.keyboard.DOWN || this.world.keyboard.S) {
+    // attack() {
+    //     if (this.world.keyboard.DOWN || this.world.keyboard.S) {
 
-        }
-    }
+    //     }
+    // }
+
     renderImages() {
         setInterval(() => {
-            if (this.isAboveGround()) {
+
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.D || this.world.keyboard.LEFT || this.world.keyboard.A) {
-                this.playAnimation(this.IMAGES_WALKING);
+            } else {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.D || this.world.keyboard.LEFT || this.world.keyboard.A) {
+                    this.playAnimation(this.IMAGES_WALKING);
+                }
             }
         }, 6000 / 60);
     }
