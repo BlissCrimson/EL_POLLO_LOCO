@@ -2,7 +2,11 @@ class World {
     character = new Character();
     level = level1;
 
-    statusbar = new StatusBar();
+    statusbar = [
+        new StatusHealth(),
+        new StatusBottles(),
+        new StatusCoins()
+    ];
     canvas;
     ctx;
     keyboard;
@@ -29,7 +33,7 @@ class World {
                 if (this.character.isColliding(enemy)) {
                     console.log('Collission with Chracter', enemy);
                     this.character.hit();
-                    this.statusbar.setPercentage(this.character.energy);
+                    this.statusbars[0].setPercentage(this.character.energy);
                     console.log('Collission with Chracter energy', this.character.energy);
                 }
             })
@@ -48,7 +52,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed objects.
-        this.addToMap(this.statusbar)
+        this.addObjectsToMap(this.statusbar)
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.enemies);
