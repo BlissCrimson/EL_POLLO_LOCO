@@ -1,5 +1,6 @@
 class StatusBar extends DrawableObject {
-
+    width = 150;
+    x = 36;
     // HEALTH_BAR = [
     //     'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
     //     'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
@@ -32,8 +33,8 @@ class StatusBar extends DrawableObject {
         // this.loadImages(this.HEALTH_BAR);
         // this.loadImages(this.BOTTLE_BAR);
         // this.loadImages(this.COIN_BAR);
-        this.x = 0;
-        this.y = 0;
+        // this.x = 0;
+        // this.y = 0;
         this.height = 48;
         // this.setPercentage(100);
     }

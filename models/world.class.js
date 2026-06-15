@@ -33,7 +33,7 @@ class World {
                 if (this.character.isColliding(enemy)) {
                     console.log('Collission with Chracter', enemy);
                     this.character.hit();
-                    this.statusbars[0].setPercentage(this.character.energy);
+                    this.statusbar[0].setPercentage(this.character.energy);
                     console.log('Collission with Chracter energy', this.character.energy);
                 }
             })

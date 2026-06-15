@@ -1,7 +1,7 @@
 class StatusCoins extends StatusBar {
-    x = 150;
+    x = 200;
     y = 0;
-    width = 48;
+    
     COIN_BAR = [
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
