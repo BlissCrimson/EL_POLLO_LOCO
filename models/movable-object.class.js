@@ -16,7 +16,11 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 215;
+        if ((this instanceof ThrowableObject)) {
+            return true;
+        } else {
+            return this.y < 215;
+        }
     }
 
     drawFrame(ctx) {

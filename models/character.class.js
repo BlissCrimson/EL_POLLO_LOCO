@@ -47,9 +47,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        // this.y = 430 - this.height
         this.applyGravity();
-        // this.animate();
         this.playAnimation(this.IMAGES_WALKING);
     }
 
@@ -83,7 +81,7 @@ class Character extends MovableObject {
 
     // attack() {
     //     if (this.world.keyboard.DOWN || this.world.keyboard.S) {
-
+    //         this.throw();
     //     }
     // }
 

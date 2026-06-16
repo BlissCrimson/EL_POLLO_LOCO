@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+
     level = level1;
 
     statusbar = [
@@ -7,6 +8,7 @@ class World {
         new StatusBottles(),
         new StatusCoins()
     ];
+    throwableObjects = [new ThrowableObject(this.character.x, this.character.y)]
     canvas;
     ctx;
     keyboard;
@@ -19,7 +21,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
@@ -27,16 +29,10 @@ class World {
         this.character.animate();
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    console.log('Collission with Chracter', enemy);
-                    this.character.hit();
-                    this.statusbar[0].setPercentage(this.character.energy);
-                    console.log('Collission with Chracter energy', this.character.energy);
-                }
-            })
+            this.checkCollisions();
+            this.checkThrowObjects();
         }, 1000)
     }
 
@@ -47,15 +43,15 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
 
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.clouds);
-
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed objects.
         this.addObjectsToMap(this.statusbar)
         this.ctx.translate(this.camera_x, 0);
 
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects)
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -89,10 +85,25 @@ class World {
         this.ctx.save();
         this.ctx.translate(mo.x + mo.width, 0);
         this.ctx.scale(-1, 1);
-
     }
 
     flipImageBack(mo) {
         this.ctx.restore();
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusbar[0].setPercentage(this.character.energy);
+            }
+        })
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.Space || this.keyboard.S) {
+            let bottle = new ThrowableObject(this.character.x, this.character.y)
+            this.throwableObjects.push(bottle);
+        }
     }
 }

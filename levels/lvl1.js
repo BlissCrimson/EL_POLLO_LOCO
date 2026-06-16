@@ -7,6 +7,9 @@ const level1 = new Level(
         // new ChickenSmall(),
         new ChickenBoss(),
     ],
+    [
+        // new Bottle()
+    ],
     [   // clouds
         new Cloud()
     ],
