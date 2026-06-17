@@ -13,7 +13,15 @@ const keyMap = {
     'd': 'D'
 };
 
+document.addEventListener('DOMContentLoaded', (e) => {
+    document.getElementById('startGame').addEventListener('click', () => {
+        init();
+    })
+});
+
 function init() {
+    document.getElementById('startScreen').classList.add('d_none');
+    document.getElementById('canvas').classList.remove('d_none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }

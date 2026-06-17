@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EL POLLO LOCO</title>
+  <link rel="stylesheet" href="fonts.css">
   <link rel="stylesheet" href="style.css" />
   <!-- Basisclasses -->
   <script src="models/drawable-object.class.js"></script>
@@ -29,18 +30,34 @@
   <script src="levels/lvl1.js"></script>
   <!-- World -->
   <script src="models/world.class.js"></script>
-  <!--  -->
   <script src="js/game.js"></script>
 </head>
 
-<body onload="init()">
+<body>
+  <!-- <body onload="init()"> -->
 
-  <h1>El pollo loco</h1>
+  <h1>EL POLLO LOCO</h1>
+  <div class="game-wrapper">
+    <div id="startScreen" class="start-screen">
+      <div class="button button__play">
+        <img id="startGame" class="button button__img" src="./assets/icons/play.svg" alt="">
+        PLAY
+      </div>
+      <div id="instructions" class="button button__instructions">
+        <img class="button__img" src="" alt="">
+        CONTROLLS
+      </div>
+      <div id="stettings" class="button button__settings">
+        <img class="button__img" src="./assets/icons/settings.svg" alt="">
+        SETTINGS
+      </div>
+    </div>
 
-  <canvas id="canvas" width="720px" height="480px">
+    <canvas id="canvas" class="d_none" width="720px" height="480px">
+      <!-- <canvas id="canvas" width="720px" height="480px"> -->
 
-  </canvas>
-
+    </canvas>
+  </div>
 </body>
 
 </html>

@@ -2,8 +2,84 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Boogaloo';
+  background-image: url('./assets/img/5_background/first_half_background.png');
+  background-image: url('./assets/img/5_background/layers/air.png');
+  background-position: center;
+  /* background-image: url('./assets/img/5_background/layers/1_first_layer/1.png'); */
 }
 
 canvas {
   background-color: black;
+}
+
+h1 {
+  background: #FF9D00;
+  background: -moz-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  background: -webkit-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  background: linear-gradient(135deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.d_none {
+  display: none !important;
+}
+
+.game-wrapper {
+  width: 720px;
+  height: 480px;
+  position: relative;
+}
+
+.start-screen {
+  width: 720px;
+  height: 480px;
+  position: absolute;
+  margin: auto;
+  background-image: url('./assets/img/9_intro_outro_screens/start/startscreen_1.png');
+  background-size: cover;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.button {
+  border-radius: 100%;
+  display: flex;
+}
+
+.button__img {
+  width: 50px;
+  height: 50px;
+}
+
+.button__play {
+  background: #FF9D00;
+  background: -moz-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  background: -webkit-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  background: linear-gradient(135deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  flex-direction: column;
+}
+
+.button__instructions {
+  background: #FF9D00;
+  background: -moz-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  background: -webkit-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  background: linear-gradient(135deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  align-items: center;
+}
+
+.button__settings {
+  background: #FF9D00;
+  background: -moz-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  background: -webkit-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  background: linear-gradient(135deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  align-items: center;
 }
