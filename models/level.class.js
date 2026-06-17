@@ -1,7 +1,7 @@
 class Level {
     enemies;
     clouds;
-    bootles;
+    bottles;
     backgroundObjects;
     level_end_x = 1500;
 

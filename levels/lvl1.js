@@ -4,14 +4,29 @@ const level1 = new Level(
         new Chicken(),
         new Chicken(),
         new Chicken(),
-        // new ChickenSmall(),
+        new ChickenSmall(),
         new ChickenBoss(),
-    ],
-    [
-        // new Bottle()
     ],
     [   // clouds
         new Cloud()
+    ],
+    [
+        new Bottle(200),
+        new Bottle(235),
+        new Bottle(375),
+        new Bottle(200 * 2),
+        new Bottle(455 * 2),
+        new Bottle(375 * 3),
+        new Bottle(650 * 3),
+        new Bottle(700 * 3)
+        // new Bottle('assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 200),
+        // new Bottle('assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 235),
+        // new Bottle('assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 375),
+        // new Bottle('assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 200 * 2),
+        // new Bottle('assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 455 * 2),
+        // new Bottle('assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 375 * 3),
+        // new Bottle('assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 650 * 3),
+        // new Bottle('assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 700 * 3)
     ],
     [   // backgroundObjects
         new BackgroundObject('assets/img/5_background/layers/air.png', -720),

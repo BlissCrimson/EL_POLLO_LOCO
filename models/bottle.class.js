@@ -1,4 +1,7 @@
 class Bottle extends MovableObject {
+    y = 360;
+    width = 80;
+    height = 80;
     BOTTLE_SPLASH = [
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
@@ -20,8 +23,10 @@ class Bottle extends MovableObject {
     BOTTLE_IMAGE = [
         'assets/img/7_statusbars/3_icons/icon_salsa_bottle.png'
     ]
-    constructor() {
+    constructor(x) {
         super();
-        this.loadImage(this.BOTTLE_IMAGE)
+        let i = Math.round(Math.random());
+        this.loadImage(this.BOTTLE_ON_GROUND[i]);
+        this.x = x;
     }
 }
