@@ -43,11 +43,11 @@
         <img id="startGame" class="button button__img" src="./assets/icons/play.svg" alt="">
         PLAY
       </div>
-      <button id="openDialog" class="button button__instructions" onclick="openDialog()">
+      <button id="openDialog" class="button button__instructions" onclick="openDialog('controlls')">
         <img class="button__img" src="./assets/icons/" alt="">
         CONTROLLS
       </button>
-      <div id="stettings" class="button button__settings">
+      <div id="stettings" class="button button__settings" onclick="openDialog('settings')">
         <img class="button__img" src="./assets/icons/settings.svg" alt="">
         SETTINGS
       </div>
@@ -91,6 +91,18 @@
             <td>Down</td>
           </tr>
         </table>
+
+      </main>
+      <footer>
+        <button id="closeDialog" onclick="closeDialog()">X</button>
+      </footer>
+    </dialog>
+
+    <dialog id="settingsDialog">
+      <header>
+        <h2><img class="button__img" src="./assets/icons/settings.svg" alt="">SETTINGS</h2>
+      </header>
+      <main>
 
       </main>
       <footer>

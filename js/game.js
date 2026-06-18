@@ -1,4 +1,4 @@
-let dialogRef;
+let dialogControlls;
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -14,19 +14,18 @@ const keyMap = {
     'd': 'D'
 };
 
-function openDialog() {
-    dialogRef = document.getElementById('controllsDialog')
+function openDialog(type) {
+    if (type === 'settings') {
+        dialogRef = document.getElementById('settingsDialog')
+    }
+    if (type === 'controlls') {
+        dialogRef = document.getElementById('controllsDialog')
+    }
     dialogRef.showModal();
-    // footerDialogRef.innerHTML = dialogFooter();
-    event.stopPropagation(event);
-    return dialogRef.showModal();
+
 }
 // to close dialog
 function closeDialog() {
-    dialogRef.close();
-}
-
-function dialogClose() {
     dialogRef.close();
 }
 
@@ -37,6 +36,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
     document.getElementById('controllsDialog').addEventListener('click', (e) => {
         if (e.target === document.getElementById('controllsDialog')) closeDialog();
     });
+    document.getElementById('settingsDialog').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('settingsDialog')) closeDialog();
+    })
 });
 
 function init() {
