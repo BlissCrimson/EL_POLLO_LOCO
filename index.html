@@ -43,10 +43,10 @@
         <img id="startGame" class="button button__img" src="./assets/icons/play.svg" alt="">
         PLAY
       </div>
-      <div id="instructions" class="button button__instructions">
-        <img class="button__img" src="" alt="">
+      <button id="openDialog" class="button button__instructions" onclick="openDialog()">
+        <img class="button__img" src="./assets/icons/" alt="">
         CONTROLLS
-      </div>
+      </button>
       <div id="stettings" class="button button__settings">
         <img class="button__img" src="./assets/icons/settings.svg" alt="">
         SETTINGS
@@ -57,6 +57,46 @@
       <!-- <canvas id="canvas" width="720px" height="480px"> -->
 
     </canvas>
+    <dialog id="controllsDialog">
+      <header>
+        <h2><img class="button__img" src="./assets/icons/" alt="">CONTROLLS</h2>
+      </header>
+      <main>
+        <table>
+          <thead>
+            <tr>
+              <th>Controll</th>
+              <th>Key First</th>
+              <th>Key Second</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>Jump</td>
+            <td>W</td>
+            <td>UP</td>
+          </tr>
+          <tr>
+            <td>Walk Left</td>
+            <td>A</td>
+            <td>LEFT</td>
+          </tr>
+          <tr>
+            <td>Walk Right</td>
+            <td>D</td>
+            <td>Right</td>
+          </tr>
+          <tr>
+            <td>Attack</td>
+            <td>S</td>
+            <td>Down</td>
+          </tr>
+        </table>
+
+      </main>
+      <footer>
+        <button id="closeDialog" onclick="closeDialog()">X</button>
+      </footer>
+    </dialog>
   </div>
 </body>
 
