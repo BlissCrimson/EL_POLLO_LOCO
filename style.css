@@ -1,8 +1,11 @@
+html {
+  font-family: 'Boogaloo';
+}
+
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Boogaloo';
   background-image: url('./assets/img/5_background/first_half_background.png');
   background-image: url('./assets/img/5_background/layers/air.png');
   background-position: center;
@@ -36,50 +39,66 @@ h1 {
   width: 720px;
   height: 480px;
   position: absolute;
+  top: 0;
+  left: 0;
   margin: auto;
   background-image: url('./assets/img/9_intro_outro_screens/start/startscreen_1.png');
-  background-size: cover;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+button {
+  font-family: 'Boogaloo';
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  color: #7a3c00;
+  background: #362610;
+  box-shadow: 0 6px 0 #a07800, 0 7px 8px rgba(0, 0, 0, 0.4);
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+button:hover {
+
+  cursor: pointer;
 }
 
 .button {
-  border-radius: 100%;
+  font-size: 24px;
   display: flex;
 }
 
 .button__img {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
 }
 
 .button__play {
-  background: #FF9D00;
-  background: -moz-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
-  background: -webkit-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
-  background: linear-gradient(135deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  flex-direction: column;
+  padding: 0 2px;
+  position: absolute;
+  top: 47%;
+  left: 31%;
+  transform: translate(-0%, -0%);
+  font-size: 24px
 }
 
 .button__instructions {
-  background: #FF9D00;
-  background: -moz-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
-  background: -webkit-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
-  background: linear-gradient(135deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  padding: 0;
+  position: absolute;
+  top: 72%;
+  right: 1%;
   align-items: center;
 }
 
 .button__settings {
-  background: #FF9D00;
-  background: -moz-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
-  background: -webkit-linear-gradient(-45deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
-  background: linear-gradient(135deg, #FF9D00 0%, #FFDC03 50%, #FF9D00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  position: absolute;
+  top: 2%;
+  right: 1%;
   align-items: center;
 }

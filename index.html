@@ -39,18 +39,18 @@
   <h1>EL POLLO LOCO</h1>
   <div class="game-wrapper">
     <div id="startScreen" class="start-screen">
-      <div class="button button__play">
-        <img id="startGame" class="button button__img" src="./assets/icons/play.svg" alt="">
+      <button id="startGame" class="button button__play">
+        <img class="button button__img" src="./assets/icons/play.svg" alt="">
         PLAY
-      </div>
+      </button>
       <button id="openDialog" class="button button__instructions" onclick="openDialog('controlls')">
-        <img class="button__img" src="./assets/icons/" alt="">
+        <img class="button__img" src="./assets/icons/controlls.svg" alt="">
         CONTROLLS
       </button>
-      <div id="stettings" class="button button__settings" onclick="openDialog('settings')">
+      <button id="stettings" class="button button__settings" onclick="openDialog('settings')">
         <img class="button__img" src="./assets/icons/settings.svg" alt="">
         SETTINGS
-      </div>
+      </button>
     </div>
 
     <canvas id="canvas" class="d_none" width="720px" height="480px">
@@ -59,7 +59,7 @@
     </canvas>
     <dialog id="controllsDialog">
       <header>
-        <h2><img class="button__img" src="./assets/icons/" alt="">CONTROLLS</h2>
+        <h2><img class="button__img" src="./assets/icons/controlls.svg" alt="">CONTROLLS</h2>
       </header>
       <main>
         <table>
