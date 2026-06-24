@@ -2,13 +2,13 @@ class ChickenBoss extends MovableObject {
     y = 30;
     width = 275;
     height = 425;
-    // IMAGES_WALKING = [
-    //     'assets/img/4_enemie_boss_chicken/1_walk/G1.png',
-    //     'assets/img/4_enemie_boss_chicken/1_walk/G2.png',
-    //     'assets/img/4_enemie_boss_chicken/1_walk/G3.png',
-    //     'assets/img/4_enemie_boss_chicken/1_walk/G4.png'
-    // ];
     IMAGES_WALKING = [
+        'assets/img/4_enemie_boss_chicken/1_walk/G1.png',
+        'assets/img/4_enemie_boss_chicken/1_walk/G2.png',
+        'assets/img/4_enemie_boss_chicken/1_walk/G3.png',
+        'assets/img/4_enemie_boss_chicken/1_walk/G4.png'
+    ];
+    IMAGES_ALERT = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         'assets/img/4_enemie_boss_chicken/2_alert/G6.png',
         'assets/img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -18,16 +18,6 @@ class ChickenBoss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/2_alert/G11.png',
         'assets/img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
-    // IMAGES_ALERT = [
-    //     'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
-    //     'assets/img/4_enemie_boss_chicken/2_alert/G6.png',
-    //     'assets/img/4_enemie_boss_chicken/2_alert/G7.png',
-    //     'assets/img/4_enemie_boss_chicken/2_alert/G8.png',
-    //     'assets/img/4_enemie_boss_chicken/2_alert/G9.png',
-    //     'assets/img/4_enemie_boss_chicken/2_alert/G10.png',
-    //     'assets/img/4_enemie_boss_chicken/2_alert/G11.png',
-    //     'assets/img/4_enemie_boss_chicken/2_alert/G12.png'
-    // ];
     IMAGES_ATTACK = [
         'assets/img/4_enemie_boss_chicken/3_attack/G13.png',
         'assets/img/4_enemie_boss_chicken/3_attack/G14.png',
@@ -57,6 +47,9 @@ class ChickenBoss extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
         this.x = 400 + (719 * 2);
         // this.y = 460 - this.height;
         this.animate();
@@ -64,12 +57,30 @@ class ChickenBoss extends MovableObject {
 
     animate() {
 
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 6000 / 60);
+        this.renderImages();
     }
 
     attack() {
 
+    }
+
+    renderImages() {
+        setInterval(() => {
+            if (this.moveLeft()) {
+                this.playAnimation(this.IMAGES_WALKING);
+            } else if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } 
+            // else if (condition) {
+            //     this.playAnimation(this.IMAGES_ATTACK)
+            // } 
+            // else {
+            //     if (condition) {
+            //         this.playAnimation(this.IMAGES_ALERT)
+            //     }
+            // }
+        }, 6000 / 60);
     }
 }
