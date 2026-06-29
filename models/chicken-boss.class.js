@@ -41,11 +41,6 @@ class ChickenBoss extends MovableObject {
     currentImage = 0;
     hasSpottedChracter = false;
 
-    // TODO folgendes function musst add:
-    // [ ] function walk()
-    // [ ] function attack()
-    // [ ] function dead()
-
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -94,6 +89,10 @@ class ChickenBoss extends MovableObject {
             } if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.isDying = true;
+                setTimeout(() => {
+                    let index = this.world.level.enemies.indexOf(this);
+                    this.world.level.enemies.splice(index, 1);
+                }, 600);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.hasSpottedChracter) {
@@ -108,11 +107,6 @@ class ChickenBoss extends MovableObject {
             // else if (condition) {
             //     this.playAnimation(this.IMAGES_ATTACK)
             // } 
-            // else {
-            //     if (condition) {
-            //         this.playAnimation(this.IMAGES_ALERT)
-            //     }
-            // }
         }, 6000 / 60);
     }
 }
