@@ -39,7 +39,7 @@ class ChickenBoss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
     currentImage = 0;
-    hasSpottedChracter = false;
+    hasSpottedCharacter = false;
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -95,10 +95,10 @@ class ChickenBoss extends MovableObject {
                 }, 600);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } else if (this.hasSpottedChracter) {
+            } else if (this.hasSpottedCharacter) {
                 this.playAnimation(this.IMAGES_ALERT);
             } else if (this.world.character.x >= this.x - 350) {
-                this.hasSpottedChracter = true;
+                this.hasSpottedCharacter = true;
             } else if (this.world.character.x >= this.x - 500) {
                 this.moveLeft();    // walk to this.y = 1838
 

@@ -28,6 +28,18 @@ const level1 = new Level(
         // new Bottle('assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 650 * 3),
         // new Bottle('assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 700 * 3)
     ],
+    [   // coins
+        new Coin(245, 100 + Math.random() * 200),
+        new Coin(300, 100 + Math.random() * 200),
+        new Coin(458, 100 + Math.random() * 200),
+        new Coin(245 * 2, 100 + Math.random() * 200),
+        new Coin(300 * 2, 100 + Math.random() * 200),
+        new Coin(458 * 2, 100 + Math.random() * 200),
+        new Coin(245 * 3, 100 + Math.random() * 200),
+        new Coin(300 * 3, 100 + Math.random() * 200),
+        new Coin(458 * 3, 100 + Math.random() * 200),
+
+    ],
     [   // backgroundObjects
         new BackgroundObject('assets/img/5_background/layers/air.png', -720),
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', -720),

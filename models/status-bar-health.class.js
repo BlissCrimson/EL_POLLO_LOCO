@@ -12,16 +12,17 @@ class StatusHealth extends StatusBar {
 
     constructor() {
         super();
+        this.images = this.HEALTH_BAR;
         this.loadImages(this.HEALTH_BAR);
         this.setPercentage(100);
     }
-    setPercentage(percentage) {
-        this.percentage = percentage;
+    // setPercentage(percentage) {
+    //     this.percentage = percentage;
 
-        let imageHealthPath = this.HEALTH_BAR[this.resolveImageIndex()];
+    //     let imageHealthPath = this.HEALTH_BAR[this.resolveImageIndex()];
 
-        this.img = this.imageCache[imageHealthPath]
-    }
+    //     this.img = this.imageCache[imageHealthPath]
+    // }
 
     setEnergy() {
         this.percentage = this.world.energy;

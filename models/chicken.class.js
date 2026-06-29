@@ -25,9 +25,9 @@ class Chicken extends MovableObject {
     }
 
     animate() {
-
-        this.renderImages();
-    }
+    this.walk();
+    this.renderImages();
+}
 
     walk() {
         setInterval(() => {
@@ -41,14 +41,12 @@ class Chicken extends MovableObject {
     }
 
     renderImages() {
-        setInterval(() => {
-            if (this.walk()) {
-                this.playAnimation(this.IMAGES_WALKING);
-            } else if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            }
-        }, 6000 / 60);
-    }
+    setInterval(() => {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD);
+        } else {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
+    }, 6000 / 60);
+}
 }

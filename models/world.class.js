@@ -8,6 +8,8 @@ class World {
         new StatusBottles(),
         new StatusCoins()
     ];
+    statusBoss = new StatusBoss();
+    bossVisible = false;
     throwableObjects = [new ThrowableObject(this.character.x, this.character.y)]
     canvas;
     ctx;
@@ -23,6 +25,8 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.totalBottles = this.level.bottles.length;
+        this.totalCoins = this.level.coins.length;
     }
 
     setWorld() {
@@ -37,6 +41,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkBossVisible();
         }, 1000 / 60)
     }
 
@@ -50,11 +55,15 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed objects.
         this.addObjectsToMap(this.statusbar)
+        if (this.bossVisible) {
+            this.addToMap(this.statusBoss);
+        }
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects)
 
@@ -105,6 +114,7 @@ class World {
                     console.log('Treffer!', enemy);
                     if (enemy instanceof ChickenBoss) {
                         enemy.hit(20);
+                        this.statusBoss.setPercentage(enemy.energy);
                     } else {
                         enemy.hit(100);
                     }
@@ -112,7 +122,20 @@ class World {
                 }
             })
         }
-
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.level.bottles.splice(index, 1);
+                let percentage = ((this.totalBottles - this.level.bottles.length) / this.totalBottles) * 100;
+                this.statusbar[1].setPercentage(percentage);
+            }
+        })
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.level.coins.splice(index, 1);
+                let percentage = ((this.totalCoins - this.level.coins.length) / this.totalCoins) * 100;
+                this.statusbar[2].setPercentage(percentage);
+            }
+        })
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
@@ -131,6 +154,13 @@ class World {
                     this.canThrow = true;
                 }, 500);
             }
+        }
+    }
+
+    checkBossVisible() {
+        const boss = this.level.enemies.find(e => e instanceof ChickenBoss);
+        if (boss && boss.hasSpottedCharacter) {
+            this.bossVisible = true;
         }
     }
 }
