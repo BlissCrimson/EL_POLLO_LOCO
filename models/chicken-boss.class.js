@@ -39,6 +39,8 @@ class ChickenBoss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
     currentImage = 0;
+    hasSpottedChracter = false;
+
     // TODO folgendes function musst add:
     // [ ] function walk()
     // [ ] function attack()
@@ -50,6 +52,7 @@ class ChickenBoss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_ALERT);
         this.x = 400 + (719 * 2);
         // this.y = 460 - this.height;
         this.animate();
@@ -64,15 +67,44 @@ class ChickenBoss extends MovableObject {
 
     }
 
+    alert() {
+
+    }
+
+    moveLeft() {
+        this.otherDirection = false;
+        this.x -= this.speed;
+    }
+
+    hit() {
+        this.energy -= 20;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
     renderImages() {
         setInterval(() => {
-            if (this.moveLeft()) {
-                this.playAnimation(this.IMAGES_WALKING);
-            } else if (this.isDead()) {
+            if (!this.world) {
+                return;
+            } if (this.isDying) {
+                return;
+            } if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.isDying = true;
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } 
+            } else if (this.hasSpottedChracter) {
+                this.playAnimation(this.IMAGES_ALERT);
+            } else if (this.world.character.x >= this.x - 350) {
+                this.hasSpottedChracter = true;
+            } else if (this.world.character.x >= this.x - 500) {
+                this.moveLeft();    // walk to this.y = 1838
+
+                this.playAnimation(this.IMAGES_WALKING);
+            }
             // else if (condition) {
             //     this.playAnimation(this.IMAGES_ATTACK)
             // } 

@@ -14,6 +14,7 @@ class World {
     keyboard;
     camera_x = 0;
     camera_y = 0;
+    canThrow = true;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -27,13 +28,16 @@ class World {
     setWorld() {
         this.character.world = this;
         this.character.animate();
+        this.level.enemies.forEach(e => {
+            e.world = this;
+        })
     }
 
     run() {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 1000)
+        }, 1000 / 60)
     }
 
     draw() {
@@ -48,8 +52,8 @@ class World {
         this.addObjectsToMap(this.statusbar)
         this.ctx.translate(this.camera_x, 0);
 
-        this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
+        this.addToMap(this.character);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects)
@@ -93,6 +97,22 @@ class World {
     }
 
     checkCollisions() {
+        for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
+            const bottle = this.throwableObjects[i];
+            this.level.enemies.forEach((enemy) => {
+                if (bottle.isColliding(enemy)) {
+                    console.log('Flasche x:', bottle.x, 'Boss x:', enemy.x);
+                    console.log('Treffer!', enemy);
+                    if (enemy instanceof ChickenBoss) {
+                        enemy.hit(20);
+                    } else {
+                        enemy.hit(100);
+                    }
+                    this.throwableObjects.splice(i, 1);
+                }
+            })
+        }
+
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
@@ -103,8 +123,14 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.Space || this.keyboard.S) {
-            let bottle = new ThrowableObject(this.character.x, this.character.y)
-            this.throwableObjects.push(bottle);
+            if (this.canThrow) {
+                let bottle = new ThrowableObject(this.character.x, this.character.y)
+                this.throwableObjects.push(bottle);
+                this.canThrow = false;
+                setTimeout(() => {
+                    this.canThrow = true;
+                }, 500);
+            }
         }
     }
 }
