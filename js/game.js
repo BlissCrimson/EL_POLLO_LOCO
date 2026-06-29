@@ -14,6 +14,12 @@ const keyMap = {
     'd': 'D'
 };
 
+/**
+ * For open dialog settings or controlls.
+ * 
+ * @param {type} -settings 
+ * @param {type} - controlls
+ */
 function openDialog(type) {
     if (type === 'settings') {
         dialogRef = document.getElementById('settingsDialog')
@@ -24,7 +30,10 @@ function openDialog(type) {
     dialogRef.showModal();
 
 }
-// to close dialog
+
+/**
+ * Function to close dialog.
+ */
 function closeDialog() {
     dialogRef.close();
 }
@@ -41,6 +50,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
     })
 });
 
+/**
+ * By click on start, the startscreen is closed and the canvas is running.
+ */
 function init() {
     document.getElementById('startScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
