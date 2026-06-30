@@ -38,14 +38,29 @@ class World {
     }
 
     run() {
-        setInterval(() => {
+        this.runInterval = setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkBossVisible();
-        }, 1000 / 60)
+            this.checkGameOver();  // neu
+        }, 1000 / 60);
+    }
+    // run() {
+    //     setInterval(() => {
+    //         this.checkCollisions();
+    //         this.checkThrowObjects();
+    //         this.checkBossVisible();
+    //     }, 1000 / 60)
+    // }
+    stopGame() {
+        clearInterval(this.runInterval);
+        clearInterval(this.character.animateInterval);
+        clearInterval(this.character.renderInterval);
+        this.stopped = true;
     }
 
     draw() {
+        if (this.stopped) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
@@ -161,6 +176,13 @@ class World {
         const boss = this.level.enemies.find(e => e instanceof ChickenBoss);
         if (boss && boss.hasSpottedCharacter) {
             this.bossVisible = true;
+        }
+    }
+
+    checkGameOver() {
+        if (this.character.isDead()) {
+            this.stopGame();
+            setTimeout(() => showEndscreen(), 1500);  // nach Todanimation
         }
     }
 }

@@ -58,6 +58,7 @@
       <!-- <canvas id="canvas" width="720px" height="480px"> -->
 
     </canvas>
+
     <dialog id="controllsDialog">
       <header>
         <h2><img class="button__img" src="./assets/icons/controlls.svg" alt="">CONTROLLS</h2>
@@ -111,9 +112,33 @@
     </dialog>
 
     <dialog id="impressum">
+      <header class="impressum__header">
+        <h2>IMPRESSUM</h2>
+      </header>
+      <main class="impressum__main">
+        <div
+          style="min-width: 70vh;max-width: 80vh; min-height: 70vh; max-height: 80vh; border: 8px solid #7c5e25; background-color: #cc942b; border-radius: 8px;">
 
+        </div>
+      </main>
+      <footer class="impressum__footer" style="text-align: center;">
+        <h3>
+          EL POLLO LOCO <br>
+          by <br>
+          Matthias Tausch
+        </h3>
+      </footer>
     </dialog>
 
+    <div id="endScreen" class="d_none">
+      <img src="./assets/img/5_background/canyon.background.png" alt="" srcset="">
+      <button onclick="restartGame()">
+        restart
+      </button>
+      <button onclick="showHomeScreen()">
+        Home
+      </button>
+    </div>
   </div>
 </body>
 

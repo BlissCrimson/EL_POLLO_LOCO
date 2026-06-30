@@ -50,15 +50,23 @@ document.addEventListener('DOMContentLoaded', (e) => {
     })
 });
 
-/**
- * By click on start, the startscreen is closed and the canvas is running.
- */
 function init() {
+    if (world) world.stopGame();
+    document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('startScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
+/**
+ * By click on start, the startscreen is closed and the canvas is running.
+ */
+// function init() {
+//     document.getElementById('startScreen').classList.add('d_none');
+//     document.getElementById('canvas').classList.remove('d_none');
+//     canvas = document.getElementById('canvas');
+//     world = new World(canvas, keyboard);
+// }
 
 window.addEventListener("keydown", (e) => {
     keyboard[keyMap[e.key]] = true;
@@ -67,3 +75,22 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
     keyboard[keyMap[e.key]] = false;
 });
+
+function restartGame() {
+    if (world) world.stopGame();  // fehlt!
+    document.getElementById('endScreen').classList.add('d_none');
+    document.getElementById('canvas').classList.remove('d_none');
+    world = new World(canvas, keyboard);
+}
+
+function showEndscreen() {
+    document.getElementById('canvas').classList.add('d_none');
+    document.getElementById('endScreen').classList.remove('d_none');
+}
+
+function showHomeScreen() {
+    if (world) world.stopGame();
+    document.getElementById('canvas').classList.add('d_none');
+    document.getElementById('endScreen').classList.add('d_none');
+    document.getElementById('startScreen').classList.remove('d_none');  // fehlt!
+}
