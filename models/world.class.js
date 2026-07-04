@@ -17,7 +17,7 @@ class World {
     camera_x = 0;
     camera_y = 0;
     canThrow = true;
-
+    isCollidingWithCharacter = false;
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -62,11 +62,9 @@ class World {
     draw() {
         if (this.stopped) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
-
+        this.addObjectsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed objects.
         this.addObjectsToMap(this.statusbar)
@@ -74,8 +72,6 @@ class World {
             this.addToMap(this.statusBoss);
         }
         this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
@@ -152,9 +148,14 @@ class World {
             }
         })
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusbar[0].setPercentage(this.character.energy);
+            if (this.character.isColliding(enemy) && !this.character.isHurt()) {
+                if (!enemy.isCollidingWithCharacter) {
+                    this.character.hit();
+                    this.statusbar[0].setPercentage(this.character.energy);
+                    this.isCollidingWithCharacter = true;
+                }
+            } else {
+                enemy.isCollidingWithCharacter = false;
             }
         })
     }

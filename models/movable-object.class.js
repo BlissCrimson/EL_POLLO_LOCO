@@ -6,6 +6,12 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     isDying = false;
+    offset = {
+        top: 5,
+        bottom: 5,
+        left: 5,
+        right: 5
+    };
 
     applyGravity() {
         setInterval(() => {
@@ -31,15 +37,26 @@ class MovableObject extends DrawableObject {
             ctx.strokeStyle = 'blue';
             ctx.rect(this.otherDirection ? 0 : this.x, this.y, this.width, this.height);
             ctx.stroke();
+
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'red';
+            ctx.rect(
+                (this.otherDirection ? 0 : this.x) + this.offset.left,
+                this.y + this.offset.top,
+                this.width - this.offset.left - this.offset.right,
+                this.height - this.offset.top - this.offset.bottom
+            );
+            ctx.stroke();
         }
     }
 
     // character.isColliding(chicken);
     isColliding(mo) {
-                return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height
+        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
     }
 
     hit() {

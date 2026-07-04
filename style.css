@@ -43,7 +43,18 @@ h1 {
   left: 0;
   margin: auto;
   background-image: url('./assets/img/9_intro_outro_screens/start/startscreen_1.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
+.end-screen {
+  width: 720px;
+  height: 480px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  /* background-image: url('./assets/img/5_background/canyon.background.png'); */
   background-size: contain;
   background-repeat: no-repeat;
 }
