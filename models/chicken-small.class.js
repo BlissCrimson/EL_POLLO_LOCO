@@ -22,6 +22,7 @@ class ChickenSmall extends MovableObject {
         this.x = 400 + Math.random() * 400;
         this.y = 430 - this.height;
         this.animate();
+        this.deadSound = soundManager.registerSound('assets/audio/chicken-dead.mp3');
     }
 
     animate() {

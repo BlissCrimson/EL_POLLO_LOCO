@@ -2,6 +2,8 @@ let dialogControlls;
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let currentLevel = 0;
+let soundManager = new SoundManager();
 const keyMap = {
     'ArrowLeft': 'LEFT',
     'ArrowRight': 'RIGHT',
@@ -13,6 +15,16 @@ const keyMap = {
     's': 'S',
     'd': 'D'
 };
+const levelFactories = [
+    createLevel1
+    // createLevel2,
+    // createLevel3
+]
+
+function startLevel(index) {
+    if (world) world.stopGame();
+    world = new World(canvas, keyboard, levelFactories[index]())
+}
 
 /**
  * For open dialog settings or controlls.
@@ -50,23 +62,16 @@ document.addEventListener('DOMContentLoaded', (e) => {
     })
 });
 
+/**
+ * By click on start, the startscreen is closed and the canvas is running.
+ */
 function init() {
-    if (world) world.stopGame();
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('startScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
+    startLevel(currentLevel);
 }
-/**
- * By click on start, the startscreen is closed and the canvas is running.
- */
-// function init() {
-//     document.getElementById('startScreen').classList.add('d_none');
-//     document.getElementById('canvas').classList.remove('d_none');
-//     canvas = document.getElementById('canvas');
-//     world = new World(canvas, keyboard);
-// }
 
 window.addEventListener("keydown", (e) => {
     keyboard[keyMap[e.key]] = true;
@@ -74,18 +79,28 @@ window.addEventListener("keydown", (e) => {
 
 window.addEventListener("keyup", (e) => {
     keyboard[keyMap[e.key]] = false;
+    world.character.walkingSound.pause();
+    world.character.walkingSound.currentTime = 0;
 });
 
 function restartGame() {
-    if (world) world.stopGame();  // fehlt!
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
-    world = new World(canvas, keyboard);
+    startLevel(currentLevel);
 }
 
-function showEndscreen() {
+/**
+ * 
+ * @param {string} win - for load WinScreen
+ */
+function showEndscreen(win) {
     document.getElementById('canvas').classList.add('d_none');
     document.getElementById('endScreen').classList.remove('d_none');
+    if (win === "win") {
+        document.getElementById('resultImg').src = './assets/img/You won, you lost/You Win A.png';
+    } else {
+        document.getElementById('resultImg').src = './assets/img/You won, you lost/Game Over.png';
+    }
 }
 
 function showHomeScreen() {

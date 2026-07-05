@@ -51,6 +51,8 @@ class ChickenBoss extends MovableObject {
         this.x = 400 + (719 * 2);
         // this.y = 460 - this.height;
         this.animate();
+        this.deadSound = soundManager.registerSound('assets/audio/boss-dead.mp3');
+        this.alertSound = soundManager.registerSound('assets/audio/boss-alert.mp3');
     }
 
     animate() {

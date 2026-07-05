@@ -26,6 +26,7 @@ class World {
         this.run();
         this.totalBottles = this.level.bottles.length;
         this.totalCoins = this.level.coins.length;
+        this.boss = this.level.enemies.find(e => e instanceof ChickenBoss);
     }
 
     setWorld() {
@@ -42,6 +43,7 @@ class World {
             this.checkThrowObjects();
             this.checkBossVisible();
             this.checkGameOver();  // neu
+            this.checkWin();
         }, 1000 / 60);
     }
 
@@ -186,8 +188,8 @@ class World {
     }
 
     checkBossVisible() {
-        const boss = this.level.enemies.find(e => e instanceof ChickenBoss);
-        if (boss && boss.hasSpottedCharacter) {
+        // const boss = this.level.enemies.find(e => e instanceof ChickenBoss);
+        if (this.boss && this.boss.hasSpottedCharacter) {
             this.bossVisible = true;
         }
     }
@@ -195,13 +197,14 @@ class World {
     checkGameOver() {
         if (this.character.isDead()) {
             this.stopGame();
-            setTimeout(() => showEndscreen(), 1500);  // nach Todanimation
+            setTimeout(() => showEndscreen('lose'), 1500);  // nach Todanimation
         }
     }
 
-    // checkWin(){
-    //     if (this.ChickenBoss.isDead()) {
-    //         this.
-    //     }
-    // }
+    checkWin() {
+        if (this.boss.isDead()) {
+            this.stopGame();
+            setTimeout(() => showEndscreen('win'), 1500);  // nach Sieganimation
+        }
+    }
 }

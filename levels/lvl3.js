@@ -1,4 +1,4 @@
-function createLevel1() {
+function createLevel3() {
     return new Level(
         [   // enemies
             new Chicken(),
