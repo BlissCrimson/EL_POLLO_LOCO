@@ -1,8 +1,6 @@
 class World {
     character = new Character();
 
-    level = level1;
-
     statusbar = [
         new StatusHealth(),
         new StatusBottles(),
@@ -18,7 +16,8 @@ class World {
     camera_y = 0;
     canThrow = true;
     isCollidingWithCharacter = false;
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, level) {
+        this.level = level;
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -45,13 +44,7 @@ class World {
             this.checkGameOver();  // neu
         }, 1000 / 60);
     }
-    // run() {
-    //     setInterval(() => {
-    //         this.checkCollisions();
-    //         this.checkThrowObjects();
-    //         this.checkBossVisible();
-    //     }, 1000 / 60)
-    // }
+
     stopGame() {
         clearInterval(this.runInterval);
         clearInterval(this.character.animateInterval);
@@ -117,22 +110,49 @@ class World {
     }
 
     checkCollisions() {
+        this.bottlesCollision();
+        this.coinCollision();
+        this.characterCollision();
+
+    }
+
+    characterCollision() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof ChickenBoss)) {
+                    if (enemy.isDying) {
+                        return;
+                    }
+                    enemy.jumpHit();
+                    this.character.speedY = 15;
+                } else if (!this.character.isHurt() && !this.isCollidingWithCharacter) {
+                    this.character.hit();
+                    this.statusbar[0].setPercentage(this.character.energy);
+                    this.isCollidingWithCharacter = true;
+                }
+            } else {
+                this.isCollidingWithCharacter = false;
+            }
+        })
+    }
+
+    bottlesCollision() {
         for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
             const bottle = this.throwableObjects[i];
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
-                    console.log('Flasche x:', bottle.x, 'Boss x:', enemy.x);
-                    console.log('Treffer!', enemy);
                     if (enemy instanceof ChickenBoss) {
                         enemy.hit(20);
                         this.statusBoss.setPercentage(enemy.energy);
-                    } else {
-                        enemy.hit(100);
                     }
                     this.throwableObjects.splice(i, 1);
                 }
             })
         }
+        this.bottlesUsed();
+    }
+
+    bottlesUsed() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.level.bottles.splice(index, 1);
@@ -140,22 +160,14 @@ class World {
                 this.statusbar[1].setPercentage(percentage);
             }
         })
+    }
+
+    coinCollision() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(index, 1);
                 let percentage = ((this.totalCoins - this.level.coins.length) / this.totalCoins) * 100;
                 this.statusbar[2].setPercentage(percentage);
-            }
-        })
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-                if (!enemy.isCollidingWithCharacter) {
-                    this.character.hit();
-                    this.statusbar[0].setPercentage(this.character.energy);
-                    this.isCollidingWithCharacter = true;
-                }
-            } else {
-                enemy.isCollidingWithCharacter = false;
             }
         })
     }
@@ -186,4 +198,10 @@ class World {
             setTimeout(() => showEndscreen(), 1500);  // nach Todanimation
         }
     }
+
+    // checkWin(){
+    //     if (this.ChickenBoss.isDead()) {
+    //         this.
+    //     }
+    // }
 }

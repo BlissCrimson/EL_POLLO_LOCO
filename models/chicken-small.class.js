@@ -26,19 +26,41 @@ class ChickenSmall extends MovableObject {
 
     animate() {
         this.walk();
+        this.renderImages();
 
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 6000 / 60);
+        // setInterval(() => {
+        //     this.playAnimation(this.IMAGES_WALKING);
+        // }, 6000 / 60);
     }
 
     walk() {
         setInterval(() => {
-            this.moveLeft();
+
+            if (this.isDying) {
+                return;
+            } this.moveLeft();
             this.otherDirection = false;
         }, 1000 / 60);
     }
     eat() {
 
+    }
+
+    renderImages() {
+        setInterval(() => {
+            if (this.isDying) {
+                return;
+            }
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+                this.isDying = true;
+                setTimeout(() => {
+                    let index = this.world.level.enemies.indexOf(this);
+                    this.world.level.enemies.splice(index, 1);
+                }, 600);
+            } else {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+        }, 6000 / 60);
     }
 }
