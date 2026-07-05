@@ -18,6 +18,7 @@ class ChickenSmall extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_DEAD);
         this.x = 400 + Math.random() * 400;
         this.y = 430 - this.height;
         this.animate();
