@@ -1,4 +1,4 @@
-html {
+* {
   font-family: 'Boogaloo';
 }
 
@@ -9,7 +9,6 @@ body {
   background-image: url('./assets/img/5_background/canyon.background.png');
   background-repeat: no-repeat;
   background-position: cover;
-  /* background-image: url('./assets/img/5_background/layers/1_first_layer/1.png'); */
 }
 
 canvas {
@@ -47,20 +46,28 @@ h1 {
   background-repeat: no-repeat;
 }
 
-.end-screen {
+.endscreen {
   width: 720px;
   height: 480px;
   position: absolute;
   top: 0;
   left: 0;
   margin: auto;
-  /* background-image: url('./assets/img/5_background/canyon.background.png'); */
   background-size: contain;
   background-repeat: no-repeat;
 }
 
+.endscreen__background {}
+
+.endscreen__result {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
 button {
-  font-family: 'Boogaloo';
+  /* font-family: 'Boogaloo'; */
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
@@ -90,6 +97,21 @@ button:hover {
   height: 48px;
 }
 
+.button__instructions {
+  padding: 0;
+  position: absolute;
+  top: 72%;
+  right: 1%;
+  align-items: center;
+}
+
+.button__mute {
+  position: absolute;
+  top: 2%;
+  left: 1%;
+  align-items: center;
+}
+
 .button__play {
   padding: 0 2px;
   position: absolute;
@@ -99,13 +121,7 @@ button:hover {
   font-size: 24px
 }
 
-.button__instructions {
-  padding: 0;
-  position: absolute;
-  top: 72%;
-  right: 1%;
-  align-items: center;
-}
+
 
 .button__settings {
   position: absolute;

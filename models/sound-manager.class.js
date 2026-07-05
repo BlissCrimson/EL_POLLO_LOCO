@@ -4,24 +4,32 @@ class SoundManager {
 
     registerSound(path) {
         let sound = new Audio(path);
-        // TODO: sound zum Array hinzufügen
-        // TODO: sound.muted auf aktuellen this.muted-Status setzen
+        this.sounds.push(sound);
+        sound.muted = this.muted;
         return sound;
     }
 
     toggleMute() {
-        // TODO: this.muted umkehren
         this.muted = !this.muted;
         // TODO: über alle sounds iterieren und muted setzen
         this.sounds.forEach(sound => {
             sound.muted = this.muted;
         })
-        // TODO: Status im localStorage speichern
         localStorage.setItem('muted', this.muted);
+        this.toggleMuteIcon();
     }
 
     loadMuteState() {
-        // TODO: aus localStorage lesen und anwenden
         this.muted = localStorage.getItem('muted') === 'true';
+    }
+
+    toggleMuteIcon() {
+        const muteIcon = document.getElementById('muteIcon');
+        if (this.muted) {
+            muteIcon.src = './assets/icons/sound_off.svg';
+        }
+        if (!this.muted) {
+            muteIcon.src = './assets/icons/sound_on.svg';
+        }
     }
 }

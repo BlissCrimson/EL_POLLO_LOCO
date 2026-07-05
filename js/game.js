@@ -4,6 +4,8 @@ let world;
 let keyboard = new Keyboard();
 let currentLevel = 0;
 let soundManager = new SoundManager();
+soundManager.loadMuteState();
+soundManager.toggleMuteIcon();
 const keyMap = {
     'ArrowLeft': 'LEFT',
     'ArrowRight': 'RIGHT',
@@ -79,8 +81,6 @@ window.addEventListener("keydown", (e) => {
 
 window.addEventListener("keyup", (e) => {
     keyboard[keyMap[e.key]] = false;
-    world.character.walkingSound.pause();
-    world.character.walkingSound.currentTime = 0;
 });
 
 function restartGame() {
@@ -97,8 +97,10 @@ function showEndscreen(win) {
     document.getElementById('canvas').classList.add('d_none');
     document.getElementById('endScreen').classList.remove('d_none');
     if (win === "win") {
+        document.getElementById('endScreenImg').src = './assets/img/5_background/background_win.png';
         document.getElementById('resultImg').src = './assets/img/You won, you lost/You Win A.png';
     } else {
+        document.getElementById('endScreenImg').src = './assets/img/5_background/background_lose.png';
         document.getElementById('resultImg').src = './assets/img/You won, you lost/Game Over.png';
     }
 }
@@ -108,4 +110,8 @@ function showHomeScreen() {
     document.getElementById('canvas').classList.add('d_none');
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('startScreen').classList.remove('d_none');  // fehlt!
+}
+
+function toggleMute() {
+    soundManager.toggleMute();
 }

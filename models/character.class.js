@@ -77,6 +77,9 @@ class Character extends MovableObject {
         this.walkingSound = soundManager.registerSound('assets/audio/walking.mp3');
         this.jumpSound = soundManager.registerSound('assets/audio/jump.mp3');
         this.hurtSound = soundManager.registerSound('assets/audio/ouch.mp3');
+        this.jumpSoundPlayed = false;
+        this.hurtSoundPlayed = false;
+        this.walkingSound.loop = true;
     }
 
     animate() {
@@ -89,9 +92,12 @@ class Character extends MovableObject {
                 this.moveLeft();
                 this.walkingSound.play();
             }
+            if (!this.world.keyboard.RIGHT && !this.world.keyboard.D && !this.world.keyboard.LEFT && !this.world.keyboard.A) {
+                this.walkingSound.pause();
+                this.walkingSound.currentTime = 0;
+            }
             if (this.world.keyboard.UP || this.world.keyboard.SPACE || this.world.keyboard.W && !this.isAboveGround()) {
                 this.jump();
-                this.jumpSound.play();
             }
 
             // this.attack();
@@ -106,10 +112,11 @@ class Character extends MovableObject {
                 }
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-                this.hurtSound.play();
+                this.hurt();
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
+                this.jumpSoundPlayed = false;
                 if (this.world.keyboard.RIGHT || this.world.keyboard.D || this.world.keyboard.LEFT || this.world.keyboard.A) {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
@@ -120,9 +127,18 @@ class Character extends MovableObject {
 
     jump() {
         this.speedY = 30;
-        // this.jumping_sound.play();
+        if (!this.jumpSoundPlayed) {
+            this.jumpSound.play();
+            this.jumpSoundPlayed = true;
+        }
     }
 
+    hurt() {
+        if (!this.hurtSoundPlayed) {
+            this.hurtSound.play();
+            this.hurtSoundPlayed = true;
+        }
+    }
     // attack() {
     //     if (this.world.keyboard.DOWN || this.world.keyboard.S) {
     //         this.throw();

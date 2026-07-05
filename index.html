@@ -41,6 +41,11 @@
 
   <h1>EL POLLO LOCO</h1>
   <div class="game-wrapper">
+    <div>
+      <button id="muteButton" class="button button__mute" onclick="toggleMute()">
+        <img id="muteIcon" class="button button__img" src="" alt="">
+      </button>
+    </div>
     <div id="startScreen" class="start-screen">
       <button id="startGame" class="button button__play">
         <img class="button button__img" src="./assets/icons/play.svg" alt="">
@@ -132,9 +137,9 @@
       </footer>
     </dialog>
 
-    <div id="endScreen" class="end-screen d_none">
-      <img src="./assets/img/5_background/canyon.background.png" alt="" srcset="">
-      <img id="resultImg" src="" alt="">
+    <div id="endScreen" class="endscreen d_none">
+      <img id="endScreenImg" class="endscreeen endscreen__background" src="" alt="" srcset="">
+      <img id="resultImg" class="endscreen endscreen__result" src="" alt="">
       <button onclick="restartGame()">
         restart
       </button>
