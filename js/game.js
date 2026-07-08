@@ -4,8 +4,7 @@ let world;
 let keyboard = new Keyboard();
 let currentLevel = 0;
 let soundManager = new SoundManager();
-soundManager.loadMuteState();
-soundManager.toggleMuteIcon();
+
 const keyMap = {
     'ArrowLeft': 'LEFT',
     'ArrowRight': 'RIGHT',
@@ -62,6 +61,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
     document.getElementById('settingsDialog').addEventListener('click', (e) => {
         if (e.target === document.getElementById('settingsDialog')) closeDialog();
     })
+    soundManager.loadMuteState();
+    soundManager.toggleMuteIcon();
 });
 
 /**

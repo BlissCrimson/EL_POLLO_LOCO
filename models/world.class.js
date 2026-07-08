@@ -188,7 +188,6 @@ class World {
     }
 
     checkBossVisible() {
-        // const boss = this.level.enemies.find(e => e instanceof ChickenBoss);
         if (this.boss && this.boss.hasSpottedCharacter) {
             this.bossVisible = true;
         }
