@@ -77,6 +77,7 @@ class Character extends MovableObject {
         this.walkingSound = soundManager.registerSound('assets/audio/walking.mp3');
         this.jumpSound = soundManager.registerSound('assets/audio/jump.mp3');
         this.hurtSound = soundManager.registerSound('assets/audio/ouch.mp3');
+        this.gameOverSound = soundManager.registerSound('assets/audio/game-over.mp3');
         this.jumpSoundPlayed = false;
         this.hurtSoundPlayed = false;
         this.walkingSound.loop = true;
@@ -84,33 +85,47 @@ class Character extends MovableObject {
     }
 
     animate() {
+
         this.animateInterval = setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.D && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.walkingSound.play();
-                this.lastMovementTime = new Date().getTime();
-            }
-            if (this.world.keyboard.LEFT || this.world.keyboard.A && this.x > 0) {
-                this.moveLeft();
-                this.walkingSound.play();
-                this.lastMovementTime = new Date().getTime();
-            }
-            if (!this.world.keyboard.RIGHT && !this.world.keyboard.D && !this.world.keyboard.LEFT && !this.world.keyboard.A) {
+            if (this.isDead()) {
                 this.walkingSound.pause();
                 this.walkingSound.currentTime = 0;
+                return;
+            } else {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.D && this.x < this.world.level.level_end_x) {
+                    this.moveRight();
+                    this.walkingSound.play();
+                    this.lastMovementTime = new Date().getTime();
+                }
+                if (this.world.keyboard.LEFT || this.world.keyboard.A && this.x > 0) {
+                    this.moveLeft();
+                    this.walkingSound.play();
+                    this.lastMovementTime = new Date().getTime();
+                }
+                if (!this.world.keyboard.RIGHT && !this.world.keyboard.D && !this.world.keyboard.LEFT && !this.world.keyboard.A) {
+                    this.walkingSound.pause();
+                    this.walkingSound.currentTime = 0;
+                }
+                if (this.world.keyboard.UP || this.world.keyboard.SPACE || this.world.keyboard.W && !this.isAboveGround()) {
+                    this.jump();
+                    this.lastMovementTime = new Date().getTime();
+                }
             }
-            if (this.world.keyboard.UP || this.world.keyboard.SPACE || this.world.keyboard.W && !this.isAboveGround()) {
-                this.jump();
-                this.lastMovementTime = new Date().getTime();
-            }
-
             // this.attack();
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
+
         this.renderInterval = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+
+                if (!this.isDying) {
+                    // TODO: speedY vielleicht erhöhen
+                    this.speedY = 10;
+                    this.isDying = true;
+                    this.gameOverSound.play();
+                }
                 if (this.currentImage >= this.IMAGES_DEAD.length) {
                     showEndscreen('lose');
                 }

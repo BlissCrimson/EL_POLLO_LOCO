@@ -121,21 +121,23 @@ class World {
     characterCollision() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof ChickenBoss)) {
+                // Jump-Kill
+                if (this.character.y + this.character.height < enemy.y + enemy.height / 2 &&
+                    !(enemy instanceof ChickenBoss)) {
                     if (enemy.isDying) {
                         return;
                     }
                     enemy.jumpHit();
                     this.character.speedY = 15;
-                } else if (!this.character.isHurt() && !this.isCollidingWithCharacter) {
+                }
+                // Schaden pro Gegner
+                else if (!enemy.lastHitCharacter || new Date().getTime() - enemy.lastHitCharacter > 1000) {
                     this.character.hit();
                     this.statusbar[0].setPercentage(this.character.energy);
-                    this.isCollidingWithCharacter = true;
+                    enemy.lastHitCharacter = new Date().getTime();
                 }
-            } else {
-                this.isCollidingWithCharacter = false;
             }
-        })
+        });
     }
 
     bottlesCollision() {
@@ -194,9 +196,12 @@ class World {
     }
 
     checkGameOver() {
-        if (this.character.isDead()) {
-            this.stopGame();
-            setTimeout(() => showEndscreen('lose'), 1500);  // nach Todanimation
+        if (this.character.isDead() && !this.gameOverTriggered) {
+            this.gameOverTriggered = true;
+            setTimeout(() => {
+                this.stopGame();
+                showEndscreen('lose')
+            }, 1500);  // nach Todanimation
         }
     }
 

@@ -23,10 +23,14 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if ((this instanceof ThrowableObject)) {
+        if (this.isDying) {
             return true;
         } else {
-            return this.y < 215;
+            if ((this instanceof ThrowableObject)) {
+                return true;
+            } else {
+                return this.y < 215;
+            }
         }
     }
 
