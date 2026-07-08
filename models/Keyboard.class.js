@@ -1,5 +1,5 @@
 class Keyboard {
-
+    
     LEFT = false;
     RIGHT = false;
     UP = false;
@@ -9,6 +9,7 @@ class Keyboard {
     A = false;
     S = false;
     D = false;
+    ENTER = false;
 
     constructor() {
 

@@ -52,6 +52,11 @@ function closeDialog() {
 }
 
 document.addEventListener('DOMContentLoaded', (e) => {
+    soundManager.loadMuteState();
+    const backgroundMusic = soundManager.registerSound('assets/audio/background.mp3');
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.5;
+    backgroundMusic.play();
     document.getElementById('startGame').addEventListener('click', () => {
         init();
     });
@@ -61,6 +66,18 @@ document.addEventListener('DOMContentLoaded', (e) => {
     document.getElementById('settingsDialog').addEventListener('click', (e) => {
         if (e.target === document.getElementById('settingsDialog')) closeDialog();
     })
+    document.querySelectorAll('.button__mobile').forEach(btn => {
+        btn.addEventListener('touchstart', () => {
+            console.log('gedrückt:', btn.dataset.key);
+            keyboard[btn.dataset.key] = true;
+        });
+        btn.addEventListener('touchend', () => {
+            keyboard[btn.dataset.key] = false;
+        });
+        btn.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        })
+    });
     soundManager.loadMuteState();
     soundManager.toggleMuteIcon();
 });
