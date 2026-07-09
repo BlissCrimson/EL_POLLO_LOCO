@@ -120,13 +120,11 @@ class World {
 
     characterCollision() {
         this.level.enemies.forEach((enemy) => {
+            if (enemy.isDying) return;
             if (this.character.isColliding(enemy)) {
                 // Jump-Kill
                 if (this.character.y + this.character.height < enemy.y + enemy.height / 2 &&
                     !(enemy instanceof ChickenBoss)) {
-                    if (enemy.isDying) {
-                        return;
-                    }
                     enemy.jumpHit();
                     this.character.speedY = 15;
                 }
