@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
     })
     document.querySelectorAll('.button__mobile').forEach(btn => {
         btn.addEventListener('touchstart', () => {
-            console.log('gedrückt:', btn.dataset.key);
             keyboard[btn.dataset.key] = true;
         });
         btn.addEventListener('touchend', () => {
