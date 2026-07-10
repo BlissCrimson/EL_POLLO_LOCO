@@ -4,7 +4,7 @@ let world;
 let keyboard = new Keyboard();
 let currentLevel = 0;
 let soundManager = new SoundManager();
-
+const orientationQuery = window.matchMedia('(orientation: portrait) and (max-width: 933px)');
 const keyMap = {
     'ArrowLeft': 'LEFT',
     'ArrowRight': 'RIGHT',
@@ -132,3 +132,14 @@ function showHomeScreen() {
 function toggleMute() {
     soundManager.toggleMute();
 }
+
+function handleOrientationChange(e) {
+    if (!world) return;
+    if (e.matches) {
+        world.pauseGame();
+    } else {
+        world.resumeGame();
+    }
+}
+
+orientationQuery.addEventListener('change', handleOrientationChange);

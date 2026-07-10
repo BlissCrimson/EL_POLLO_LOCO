@@ -33,7 +33,7 @@ class Chicken extends MovableObject {
 
     walk() {
         setInterval(() => {
-
+            if (this.world?.paused) return;
             if (this.isDying) {
                 return;
             } this.moveLeft();
@@ -47,6 +47,7 @@ class Chicken extends MovableObject {
 
     renderImages() {
         setInterval(() => {
+            if (this.world?.paused) return;
             if (this.isDying) {
                 return;
             }

@@ -2,6 +2,13 @@
   font-family: 'Boogaloo';
 }
 
+html,
+body {
+  margin: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -176,4 +183,25 @@ button:hover {
 
 .icon__mobile--attack {
   transform: rotate(130deg);
+}
+
+#rotateHint {
+  display: none;
+}
+
+@media (orientation: portrait) and (max-width: 933px) {
+  #rotateHint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    inset: 0;
+    background-color: #000;
+    color: #fff;
+    z-index: 999;
+  }
+
+  .button__mobile {
+    display: none;
+  }
 }

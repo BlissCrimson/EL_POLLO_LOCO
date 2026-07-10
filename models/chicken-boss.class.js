@@ -84,6 +84,7 @@ class ChickenBoss extends MovableObject {
 
     renderImages() {
         setInterval(() => {
+            if (this.world?.paused) return;
             if (!this.world) {
                 return;
             } if (this.isDying) {

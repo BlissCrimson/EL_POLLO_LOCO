@@ -39,6 +39,7 @@ class World {
 
     run() {
         this.runInterval = setInterval(() => {
+            if (this.paused) return;
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkBossVisible();
@@ -54,8 +55,19 @@ class World {
         this.stopped = true;
     }
 
-    draw() {
+    pauseGame() {
         if (this.stopped) return;
+        this.paused = true;
+    }
+
+    resumeGame() {
+        if (this.stopped) return;
+        this.paused = false;
+        this.draw();
+    }
+
+    draw() {
+        if (this.stopped || this.paused) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);

@@ -87,6 +87,7 @@ class Character extends MovableObject {
     animate() {
 
         this.animateInterval = setInterval(() => {
+            if (this.world.paused) return;
             if (this.isDead()) {
                 this.walkingSound.pause();
                 this.walkingSound.currentTime = 0;
@@ -117,6 +118,7 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         this.renderInterval = setInterval(() => {
+            if (this.world.paused) return;
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
 
