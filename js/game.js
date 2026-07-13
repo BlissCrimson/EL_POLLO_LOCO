@@ -97,6 +97,7 @@ function init() {
     document.getElementById('startScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
     canvas = document.getElementById('canvas');
+    toggleMobileButtons(true);
     startLevel(currentLevel);
 }
 
@@ -111,6 +112,7 @@ window.addEventListener("keyup", (e) => {
 function restartGame() {
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
+    toggleMobileButtons(true);
     startLevel(currentLevel);
 }
 
@@ -120,6 +122,7 @@ function restartGame() {
  */
 function showEndscreen(win) {
     document.getElementById('canvas').classList.add('d_none');
+    toggleMobileButtons(false);
     document.getElementById('endScreen').classList.remove('d_none');
     if (win === "win") {
         document.getElementById('endScreenImg').src = './assets/img/5_background/background_win.png';
@@ -134,11 +137,27 @@ function showHomeScreen() {
     if (world) world.stopGame();
     document.getElementById('canvas').classList.add('d_none');
     document.getElementById('endScreen').classList.add('d_none');
-    document.getElementById('startScreen').classList.remove('d_none');  // fehlt!
+    document.getElementById('startScreen').classList.remove('d_none');
+    toggleMobileButtons(false);
 }
 
 function toggleMute() {
     soundManager.toggleMute();
+}
+
+function toggleMobileButtons(show) {
+    document.querySelectorAll('.button__mobile').forEach(btn => {
+        btn.classList.toggle('d_none', !show);
+    });
+}
+
+function toggleFullscreen() {
+    let wrapper = document.querySelector('.game-wrapper');
+    if (!document.fullscreenElement) {
+        wrapper.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
 }
 
 function handleOrientationChange(e) {
@@ -155,7 +174,7 @@ orientationQuery.addEventListener('change', handleOrientationChange);
 function scaleGame() {
     const wrapper = document.querySelector('.game-wrapper');
     const isMobileLandscape = window.matchMedia('(orientation: landscape) and (max-width: 933px)').matches;
-    if (!isMobileLandscape) {
+    if (!isMobileLandscape || document.fullscreenElement) {
         wrapper.style.transform = '';
         return;
     }
@@ -165,4 +184,5 @@ function scaleGame() {
 
 window.addEventListener('resize', scaleGame);
 window.addEventListener('orientationchange', scaleGame);
+document.addEventListener('fullscreenchange', scaleGame);
 scaleGame();

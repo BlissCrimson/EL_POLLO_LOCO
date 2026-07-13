@@ -39,9 +39,8 @@
 
 <body>
   <!-- <body onload="init()"> -->
-
-  <h1>EL POLLO LOCO</h1>
   <div class="game-wrapper">
+    <h1>EL POLLO LOCO</h1>
     <div id="startScreen" class="start-screen">
       <button id="muteButton" class="button button__mute" onclick="toggleMute()">
         <img id="muteIcon" class="button button__img" src="" alt="">
@@ -58,18 +57,21 @@
         <img class="button__img" src="./assets/icons/settings.svg" alt="">
         SETTINGS
       </button>
+      <button id="fullscreenBtn" class="button__fullscreen" onclick="toggleFullscreen()">
+        <img class="button__img" src="./assets/icons/fullscreen.png" alt="">
+      </button>
     </div>
     <!-- mobile Buttons -->
-    <button id="buttonLeft" class="button button__mobile button__mobile--left" data-key="A">
+    <button id="buttonLeft" class="button button__mobile button__mobile--left d_none" data-key="A">
       <img class="icon__mobile icon__mobile--left" src="./assets/icons/arrow.png" alt="">
     </button>
-    <button id="buttonRight" class="button button__mobile button__mobile--right" data-key="D">
+    <button id="buttonRight" class="button button__mobile button__mobile--right d_none" data-key="D">
       <img class="icon__mobile icon__mobile--right" src="./assets/icons/arrow.png" alt="">
     </button>
-    <button id="buttonJump" class="button button__mobile button__mobile--jump" data-key="W">
+    <button id="buttonJump" class="button button__mobile button__mobile--jump d_none" data-key="W">
       <img class="icon__mobile icon__mobile--up" src="./assets/icons/arrow.png" alt="">
     </button>
-    <button id="buttonAttack" class="button button__mobile button__mobile--attack" data-key="S">
+    <button id="buttonAttack" class="button button__mobile button__mobile--attack d_none" data-key="S">
       <img class="icon__mobile icon__mobile--attack" src="./assets/icons/arrow__attack.png" alt="">
     </button>
 
@@ -89,7 +91,7 @@
     </dialog>
 
     <div id="endScreen" class="endscreen d_none">
-      <img id="endScreenImg" class="endscreeen endscreen__background" src="" alt="" srcset="">
+      <img id="endScreenImg" class="endscreen endscreen__background" src="" alt="" srcset="">
       <img id="resultImg" class="endscreen endscreen__result" src="" alt="">
       <button onclick="restartGame()">
         restart
@@ -99,7 +101,6 @@
       </button>
     </div>
   </div>
-
   <div id="rotateHint">
     <p>Turn your device to play</p>
   </div>
