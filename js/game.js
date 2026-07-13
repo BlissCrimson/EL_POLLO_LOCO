@@ -34,12 +34,23 @@ function startLevel(index) {
  * @param {type} - controlls
  */
 function openDialog(type) {
+    const title = document.getElementById('dialogTitle');
+    const content = document.getElementById('dialogMain')
     if (type === 'settings') {
-        dialogRef = document.getElementById('settingsDialog')
+        // dialogRef = document.getElementById('settingsDialog')
+        title.textContent = 'SETTINGS';
+        content.innerHTML = getSettingsDialogTemplate();
     }
     if (type === 'controlls') {
-        dialogRef = document.getElementById('controllsDialog')
+        // dialogRef = document.getElementById('controllsDialog')
+        title.textContent = 'CONTROLLS';
+        content.innerHTML = getControllsDialogTemplate();
     }
+    if (type === 'impressum') {
+        title.textContent = 'IMPRESSUM';
+        content.innerHTML = getImpressumsDialogTemplate();
+    }
+    dialogRef = document.getElementById('dialogContent');
     dialogRef.showModal();
 
 }
@@ -60,12 +71,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
     document.getElementById('startGame').addEventListener('click', () => {
         init();
     });
-    document.getElementById('controllsDialog').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('controllsDialog')) closeDialog();
+    document.getElementById('dialogContent').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('dialogContent')) closeDialog();
     });
-    document.getElementById('settingsDialog').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('settingsDialog')) closeDialog();
-    })
     document.querySelectorAll('.button__mobile').forEach(btn => {
         btn.addEventListener('touchstart', () => {
             keyboard[btn.dataset.key] = true;
@@ -143,3 +151,18 @@ function handleOrientationChange(e) {
 }
 
 orientationQuery.addEventListener('change', handleOrientationChange);
+
+function scaleGame() {
+    const wrapper = document.querySelector('.game-wrapper');
+    const isMobileLandscape = window.matchMedia('(orientation: landscape) and (max-width: 933px)').matches;
+    if (!isMobileLandscape) {
+        wrapper.style.transform = '';
+        return;
+    }
+    const scale = Math.min(window.innerWidth / 720, window.innerHeight / 480);
+    wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+
+window.addEventListener('resize', scaleGame);
+window.addEventListener('orientationchange', scaleGame);
+scaleGame();
