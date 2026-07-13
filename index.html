@@ -57,9 +57,6 @@
         <img class="button__img" src="./assets/icons/settings.svg" alt="">
         SETTINGS
       </button>
-      <button id="fullscreenBtn" class="button__fullscreen" onclick="toggleFullscreen()">
-        <img class="button__img" src="./assets/icons/fullscreen.png" alt="">
-      </button>
     </div>
     <!-- mobile Buttons -->
     <button id="buttonLeft" class="button button__mobile button__mobile--left d_none" data-key="A">
@@ -79,7 +76,9 @@
       <!-- <canvas id="canvas" width="720px" height="480px"> -->
 
     </canvas>
-
+    <button id="fullscreenBtnGame" class="button__fullscreen d_none" onclick="toggleFullscreen()">
+      <img class="button__img" src="./assets/icons/fullscreen.png" alt="">
+    </button>
     <dialog id="dialogContent">
       <header>
         <h2 id="dialogTitle"></h2>
@@ -100,6 +99,9 @@
         Home
       </button>
     </div>
+    <button id="fullscreenBtn" class="button__fullscreen" onclick="toggleFullscreen()">
+      <img class="button__img" src="./assets/icons/fullscreen.png" alt="">
+    </button>
   </div>
   <div id="rotateHint">
     <p>Turn your device to play</p>

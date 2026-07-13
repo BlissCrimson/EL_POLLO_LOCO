@@ -96,6 +96,7 @@ function init() {
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('startScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
+    document.getElementById('fullscreenBtnGame').classList.remove('d_none');
     canvas = document.getElementById('canvas');
     toggleMobileButtons(true);
     startLevel(currentLevel);
@@ -112,6 +113,7 @@ window.addEventListener("keyup", (e) => {
 function restartGame() {
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
+    document.getElementById('fullscreenBtnGame').classList.remove('d_none');
     toggleMobileButtons(true);
     startLevel(currentLevel);
 }
@@ -138,6 +140,7 @@ function showHomeScreen() {
     document.getElementById('canvas').classList.add('d_none');
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('startScreen').classList.remove('d_none');
+    document.getElementById('fullscreenBtnGame').classList.add('d_none');
     toggleMobileButtons(false);
 }
 
