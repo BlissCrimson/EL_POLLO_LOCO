@@ -90,14 +90,12 @@ h1 {
   align-items: center;
 }
 
-.game-wrapper:fullscreen>* {
+.game-wrapper:fullscreen>canvas,
+.game-wrapper:fullscreen>.start-screen,
+.game-wrapper:fullscreen>.endscreen {
   flex-shrink: 0;
   width: min(100vw, 100vh *1.5);
   height: min(100vh, 100vw /1.5);
-}
-
-.game-wrapper:fullscreen>.start-screen,
-.game-wrapper:fullscreen>.endscreen {
   position: relative;
 }
 
@@ -177,7 +175,7 @@ button:hover {
   position: absolute;
   bottom: 3%;
   border-radius: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
@@ -285,5 +283,9 @@ button:hover {
 
   .button__fullscreen {
     display: none;
+  }
+
+  .button__mobile {
+    display: flex;
   }
 }
