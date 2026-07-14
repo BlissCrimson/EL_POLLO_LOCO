@@ -93,12 +93,12 @@ class Character extends MovableObject {
                 this.walkingSound.currentTime = 0;
                 return;
             } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.D && this.x < this.world.level.level_end_x) {
+                if ((this.world.keyboard.RIGHT || this.world.keyboard.D) && this.x < this.world.level.level_end_x) {
                     this.moveRight();
                     this.walkingSound.play();
                     this.lastMovementTime = new Date().getTime();
                 }
-                if (this.world.keyboard.LEFT || this.world.keyboard.A && this.x > 0) {
+                if ((this.world.keyboard.LEFT || this.world.keyboard.A) && this.x > 0) {
                     this.moveLeft();
                     this.walkingSound.play();
                     this.lastMovementTime = new Date().getTime();
@@ -107,7 +107,7 @@ class Character extends MovableObject {
                     this.walkingSound.pause();
                     this.walkingSound.currentTime = 0;
                 }
-                if (this.world.keyboard.UP || this.world.keyboard.SPACE || this.world.keyboard.W && !this.isAboveGround()) {
+                if ((this.world.keyboard.UP || this.world.keyboard.SPACE || this.world.keyboard.W) && !this.isAboveGround()) {
                     this.jump();
                     this.lastMovementTime = new Date().getTime();
                 }

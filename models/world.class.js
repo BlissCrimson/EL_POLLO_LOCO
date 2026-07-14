@@ -187,7 +187,7 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.Space || this.keyboard.S) {
+        if (this.keyboard.DOWN || this.keyboard.S) {
             if (this.canThrow) {
                 let bottle = new ThrowableObject(this.character.x, this.character.y)
                 this.throwableObjects.push(bottle);

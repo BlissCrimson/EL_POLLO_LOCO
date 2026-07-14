@@ -10,7 +10,7 @@ const keyMap = {
     'ArrowRight': 'RIGHT',
     'ArrowUp': 'UP',
     'ArrowDown': 'DOWN',
-    ' ': 'Space',
+    ' ': 'SPACE',
     'w': 'W',
     'a': 'A',
     's': 'S',
@@ -182,7 +182,7 @@ function scaleGame() {
         return;
     }
     const scale = Math.min(window.innerWidth / 720, window.innerHeight / 480);
-    wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    wrapper.style.transform = `scale(${scale})`;
 }
 
 window.addEventListener('resize', scaleGame);
