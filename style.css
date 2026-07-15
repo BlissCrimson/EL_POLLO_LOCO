@@ -159,6 +159,14 @@ button:hover {
   align-items: center;
 }
 
+.button__impressum {
+  font-size: 16px;
+  padding: 2px;
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+}
+
 .button__fullscreen {
   width: 30px;
   height: 30px;
