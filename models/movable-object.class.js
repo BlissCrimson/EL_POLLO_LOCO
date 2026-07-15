@@ -113,9 +113,9 @@ class MovableObject extends DrawableObject {
 
     jumpHit() {
         this.energy = 0;
-        setTimeout(() => {
-            let index = this.world.level.enemies.indexOf(this);
-            this.world.level.enemies.splice(index, 1);
-        }, 500);
+        // setTimeout(() => {
+        //     let index = this.world.level.enemies.indexOf(this);
+        //     this.world.level.enemies.splice(index, 1);
+        // }, 500);
     }
 }

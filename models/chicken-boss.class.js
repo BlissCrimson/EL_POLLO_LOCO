@@ -53,6 +53,7 @@ class ChickenBoss extends MovableObject {
         this.animate();
         this.deadSound = soundManager.registerSound('assets/audio/boss-dead.mp3');
         this.alertSound = soundManager.registerSound('assets/audio/boss-alert.mp3');
+        this.hurtSound = soundManager.registerSound('assets/audio/chickenHurt.mp3');
     }
 
     animate() {
@@ -92,16 +93,19 @@ class ChickenBoss extends MovableObject {
             } if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.isDying = true;
+                this.deadSound.play();
                 setTimeout(() => {
                     let index = this.world.level.enemies.indexOf(this);
                     this.world.level.enemies.splice(index, 1);
                 }, 600);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.hurtSound.play();
             } else if (this.hasSpottedCharacter) {
                 this.playAnimation(this.IMAGES_ALERT);
             } else if (this.world.character.x >= this.x - 350) {
                 this.hasSpottedCharacter = true;
+                this.alertSound.play();
             } else if (this.world.character.x >= this.x - 500) {
                 this.moveLeft();    // walk to this.y = 1838
 

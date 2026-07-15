@@ -54,6 +54,7 @@ class Chicken extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.isDying = true;
+                this.deadSound.play();
                 setTimeout(() => {
                     let index = this.world.level.enemies.indexOf(this);
                     this.world.level.enemies.splice(index, 1);

@@ -77,10 +77,12 @@ class Character extends MovableObject {
         this.walkingSound = soundManager.registerSound('assets/audio/walking.mp3');
         this.jumpSound = soundManager.registerSound('assets/audio/jump.mp3');
         this.hurtSound = soundManager.registerSound('assets/audio/ouch.mp3');
+        this.snoringSound = soundManager.registerSound('assets/audio/snoring.mp3');
         this.gameOverSound = soundManager.registerSound('assets/audio/game-over.mp3');
         this.jumpSoundPlayed = false;
         this.hurtSoundPlayed = false;
         this.walkingSound.loop = true;
+        this.snoringSound.loop = true;
         this.lastMovementTime = new Date().getTime();
     }
 
@@ -141,11 +143,16 @@ class Character extends MovableObject {
                 this.jumpSoundPlayed = false;
                 if (this.world.keyboard.RIGHT || this.world.keyboard.D || this.world.keyboard.LEFT || this.world.keyboard.A) {
                     this.playAnimation(this.IMAGES_WALKING);
+                    this.snoringSound.pause();
+                    this.snoringSound.currentTime = 0;
                 } else {
                     if (this.isSleeping()) {
                         this.playAnimation(this.IMAGES_LONG_IDLE);
+                        this.snoringSound.play();
                     } else {
                         this.playAnimation(this.IMAGES_IDLE);
+                        this.snoringSound.pause();
+                        this.snoringSound.currentTime = 0;
                     }
                 }
             }

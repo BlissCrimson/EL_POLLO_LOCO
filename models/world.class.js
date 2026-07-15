@@ -15,7 +15,6 @@ class World {
     camera_x = 0;
     camera_y = 0;
     canThrow = true;
-    isCollidingWithCharacter = false;
     constructor(canvas, keyboard, level) {
         this.level = level;
         this.ctx = canvas.getContext('2d');
@@ -133,9 +132,10 @@ class World {
     characterCollision() {
         this.level.enemies.forEach((enemy) => {
             if (enemy.isDying) return;
+            if (enemy.isDead()) return;
             if (this.character.isColliding(enemy)) {
                 // Jump-Kill
-                if (this.character.y + this.character.height < enemy.y + enemy.height / 2 &&
+                if (this.character.y + this.character.height < enemy.y + enemy.height * 0.7 &&
                     !(enemy instanceof ChickenBoss)) {
                     enemy.jumpHit();
                     this.character.speedY = 15;
