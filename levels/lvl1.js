@@ -1,37 +1,36 @@
 function createLevel1() {
+    const chickenAt = (x, speed) => Object.assign(new Chicken(), { x, speed });
+    const chickenSmallAt = (x, speed) => Object.assign(new ChickenSmall(), { x, speed });
+
     return new Level(
-        [   // enemies
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new ChickenSmall(),
-            new ChickenBoss(),
+        [   // enemies 
+            chickenAt(450, 0.15),
+            chickenAt(700, 0.18),
+            chickenAt(950, 0.20),
+            chickenAt(1250, 0.20),
+            chickenSmallAt(1500, 0.6),
+            new ChickenBoss()
         ],
         [   // clouds
             new Cloud()
         ],
-        [   // bottles
-            new Bottle(200),
-            new Bottle(235),
-            new Bottle(375),
-            new Bottle(200 * 2),
-            new Bottle(455 * 2),
-            new Bottle(375 * 3),
-            new Bottle(650 * 3),
-            new Bottle(700 * 3)
+        [   // bottles (8)
+            new Bottle(150),
+            new Bottle(380),
+            new Bottle(620),
+            new Bottle(860),
+            new Bottle(1100),
+            new Bottle(1340),
+            new Bottle(1580),
+            new Bottle(1820)
         ],
-        [   // coins
-            new Coin(245, 100 + Math.random() * 200),
-            new Coin(300, 100 + Math.random() * 200),
-            new Coin(458, 100 + Math.random() * 200),
-            new Coin(245 * 2, 100 + Math.random() * 200),
-            new Coin(300 * 2, 100 + Math.random() * 200),
-            new Coin(458 * 2, 100 + Math.random() * 200),
-            new Coin(245 * 3, 100 + Math.random() * 200),
-            new Coin(300 * 3, 100 + Math.random() * 200),
-            new Coin(458 * 3, 100 + Math.random() * 200),
-
+        [   // coins 
+            new Coin(200, 300), new Coin(265, 205), new Coin(330, 265),
+            new Coin(480, 255), new Coin(545, 180),
+            new Coin(695, 300), new Coin(760, 205), new Coin(825, 265),
+            new Coin(975, 255), new Coin(1040, 180),
+            new Coin(1190, 300), new Coin(1255, 205), new Coin(1320, 265),
+            new Coin(1470, 255), new Coin(1535, 180),
         ],
         [   // background
             new BackgroundObject('assets/img/5_background/layers/air.png', -720),
