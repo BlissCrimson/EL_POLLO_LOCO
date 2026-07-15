@@ -44,6 +44,13 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
+.impressum {
+  
+  background-color: #FFDC03;
+  padding: 5px;
+  border: 1px solid #FF9D00;
+}
+
 .d_none {
   display: none !important;
 }
