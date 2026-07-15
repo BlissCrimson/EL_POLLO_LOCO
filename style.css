@@ -45,10 +45,14 @@ h1 {
 }
 
 .impressum {
-  
+
   background-color: #FFDC03;
   padding: 5px;
   border: 1px solid #FF9D00;
+}
+
+.impressum__body {
+  flex-direction: column;
 }
 
 .d_none {
