@@ -42,8 +42,9 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkBossVisible();
-            this.checkGameOver();  // neu
+            this.checkGameOver();
             this.checkWin();
+            this.cleanupBottles();
         }, 1000 / 60);
     }
 
@@ -151,7 +152,8 @@ class World {
     }
 
     bottlesCollision() {
-        this.throwableObjects.forEach((bottle, bottleIndex) => {
+        this.throwableObjects.forEach((bottle) => {
+            if (bottle.isSplashing) return;
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
                     if (enemy instanceof ChickenBoss) {
@@ -160,10 +162,14 @@ class World {
                     } else if (!enemy.isDead() && !enemy.isDying) {
                         enemy.jumpHit();
                     }
-                    this.throwableObjects.splice(bottleIndex, 1);
+                    bottle.splash();
                 }
             });
         });
+    }
+
+    cleanupBottles() {
+        this.throwableObjects = this.throwableObjects.filter(b => !b.splashDone);
     }
 
     bottlesUsed() {
