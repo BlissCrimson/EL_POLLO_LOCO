@@ -45,7 +45,6 @@ h1 {
 }
 
 .impressum {
-
   background-color: #FFDC03;
   padding: 5px;
   border: 1px solid #FF9D00;
@@ -135,6 +134,7 @@ button:hover {
 .button__img {
   width: 48px;
   height: 48px;
+  border-radius: 6px;
 }
 
 .button__instructions {
@@ -152,7 +152,7 @@ button:hover {
   padding: 0;
   width: 48px;
   height: 48px;
-}
+  }
 
 .button__play {
   padding: 0 2px;
@@ -176,6 +176,7 @@ button:hover {
   position: absolute;
   bottom: 20%;
   left: 50%;
+  border-radius: 6px;
 }
 
 .button__fullscreen {
