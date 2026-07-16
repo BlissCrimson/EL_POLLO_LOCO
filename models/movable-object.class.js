@@ -38,21 +38,14 @@ class MovableObject extends DrawableObject {
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof ChickenBoss) {
             ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
             ctx.rect(this.otherDirection ? 0 : this.x, this.y, this.width, this.height);
-            ctx.stroke();
-
             ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'red';
             ctx.rect(
                 (this.otherDirection ? 0 : this.x) + this.offset.left,
                 this.y + this.offset.top,
                 this.width - this.offset.left - this.offset.right,
                 this.height - this.offset.top - this.offset.bottom
             );
-            ctx.stroke();
         }
     }
 

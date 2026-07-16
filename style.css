@@ -152,7 +152,8 @@ button:hover {
   padding: 0;
   width: 48px;
   height: 48px;
-  }
+  padding: 2px;
+}
 
 .button__play {
   padding: 0 2px;
@@ -184,7 +185,7 @@ button:hover {
   height: 30px;
   border: none;
   position: absolute;
-  top: 72%;
+  top: 81%;
   right: 5%;
   background: none;
 }

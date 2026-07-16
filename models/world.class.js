@@ -151,19 +151,19 @@ class World {
     }
 
     bottlesCollision() {
-        for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
-            const bottle = this.throwableObjects[i];
+        this.throwableObjects.forEach((bottle, bottleIndex) => {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
                     if (enemy instanceof ChickenBoss) {
-                        enemy.hit(20);
-                        this.statusBoss.setPercentage(enemy.energy);
+                        enemy.hit();
+                        this.statusbar[1].setPercentage(enemy.energy);
+                    } else if (!enemy.isDead() && !enemy.isDying) {
+                        enemy.jumpHit();
                     }
-                    this.throwableObjects.splice(i, 1);
+                    this.throwableObjects.splice(bottleIndex, 1);
                 }
-            })
-        }
-        this.bottlesUsed();
+            });
+        });
     }
 
     bottlesUsed() {
@@ -211,14 +211,14 @@ class World {
             setTimeout(() => {
                 this.stopGame();
                 showEndscreen('lose')
-            }, 1500);  // nach Todanimation
+            }, 1500);
         }
     }
 
     checkWin() {
         if (this.boss.isDead()) {
             this.stopGame();
-            setTimeout(() => showEndscreen('win'), 1500);  // nach Sieganimation
+            setTimeout(() => showEndscreen('win'), 1500);
         }
     }
 }

@@ -23,6 +23,21 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/3_jump/J-38.png',
         'assets/img/2_character_pepe/3_jump/J-39.png'
     ];
+    IMAGES_JUMPING_START = [
+        'assets/img/2_character_pepe/3_jump/J-31.png',
+        'assets/img/2_character_pepe/3_jump/J-32.png',
+        'assets/img/2_character_pepe/3_jump/J-33.png',
+        'assets/img/2_character_pepe/3_jump/J-34.png'
+    ];
+    IMAGES_JUMPING_HIGH = [
+        'assets/img/2_character_pepe/3_jump/J-35.png'
+    ];
+    IMAGES_JUMPING_END = [
+        'assets/img/2_character_pepe/3_jump/J-36.png',
+        'assets/img/2_character_pepe/3_jump/J-37.png',
+        'assets/img/2_character_pepe/3_jump/J-38.png',
+        'assets/img/2_character_pepe/3_jump/J-39.png'
+    ];
     IMAGES_HURT = [
         'assets/img/2_character_pepe/4_hurt/H-41.png',
         'assets/img/2_character_pepe/4_hurt/H-42.png',
@@ -114,8 +129,6 @@ class Character extends MovableObject {
                     this.lastMovementTime = new Date().getTime();
                 }
             }
-            // this.attack();
-
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
@@ -123,12 +136,12 @@ class Character extends MovableObject {
             if (this.world.paused) return;
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-
                 if (!this.isDying) {
-                    // TODO: speedY vielleicht erhöhen
                     this.speedY = 10;
                     this.isDying = true;
                     this.gameOverSound.play();
+                    this.snoringSound.pause();
+                    this.snoringSound.currentTime = 0;
                 }
                 if (this.currentImage >= this.IMAGES_DEAD.length) {
                     showEndscreen('lose');
