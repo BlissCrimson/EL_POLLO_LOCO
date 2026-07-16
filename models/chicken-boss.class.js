@@ -40,6 +40,8 @@ class ChickenBoss extends MovableObject {
     ];
     currentImage = 0;
     hasSpottedCharacter = false;
+    canAttack = true;
+    isAttacking = false;
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -57,16 +59,18 @@ class ChickenBoss extends MovableObject {
     }
 
     animate() {
-
         this.renderImages();
     }
 
     attack() {
-
+        this.isAttacking = true;
+        this.canAttack = false;
+        setTimeout(() => { this.isAttacking = false; }, this.IMAGES_ATTACK.length * (6000 / 60));
+        setTimeout(() => { this.canAttack = true; }, 1500);
     }
 
-    alert() {
-
+    isCharacterInAttackRange() {
+        return this.world.character.x >= this.x - 150;
     }
 
     moveLeft() {
@@ -80,6 +84,7 @@ class ChickenBoss extends MovableObject {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
+            this.hurtSound.play();
         }
     }
 
@@ -100,20 +105,22 @@ class ChickenBoss extends MovableObject {
                 }, 600);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-                this.hurtSound.play();
-            } else if (this.hasSpottedCharacter) {
+            } else if (this.isAttacking) {
+                this.playAnimation(this.IMAGES_ATTACK);
+            } else if (this.hasSpottedCharacter && this.isCharacterInAttackRange() && this.canAttack) {
+                this.attack();
+            } else if (this.hasSpottedCharacter && this.isCharacterInAttackRange()) {
                 this.playAnimation(this.IMAGES_ALERT);
+            } else if (this.hasSpottedCharacter) {
+                this.moveLeft();
+                this.playAnimation(this.IMAGES_WALKING);
             } else if (this.world.character.x >= this.x - 350) {
                 this.hasSpottedCharacter = true;
                 this.alertSound.play();
             } else if (this.world.character.x >= this.x - 500) {
                 this.moveLeft();    // walk to this.y = 1838
-
                 this.playAnimation(this.IMAGES_WALKING);
             }
-            // else if (condition) {
-            //     this.playAnimation(this.IMAGES_ATTACK)
-            // } 
         }, 6000 / 60);
     }
 }
