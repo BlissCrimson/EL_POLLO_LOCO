@@ -82,7 +82,10 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_JUMPING_START);
+        this.loadImages(this.IMAGES_JUMPING_HIGH);
+        this.loadImages(this.IMAGES_JUMPING_END);
+        // this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_IDLE);
@@ -99,6 +102,7 @@ class Character extends MovableObject {
         this.walkingSound.loop = true;
         this.snoringSound.loop = true;
         this.lastMovementTime = new Date().getTime();
+        this.jumpPhase = 'start';
     }
 
     animate() {
@@ -150,7 +154,27 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
                 this.hurt();
             } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
+                let newPhase;
+                if (this.speedY > 2) {
+                    newPhase = 'start';
+                } else if (this.speedY < -2) {
+                    newPhase = 'end';
+                } else {
+                    newPhase = 'high';
+                }
+
+                if (newPhase !== this.jumpPhase) {
+                    this.jumpPhase = newPhase;
+                    this.currentImage = 0;
+                }
+
+                if (this.jumpPhase === 'start') {
+                    this.playJumpAnimation(this.IMAGES_JUMPING_START);
+                } else if (this.jumpPhase === 'high') {
+                    this.playJumpAnimation(this.IMAGES_JUMPING_HIGH);
+                } else {
+                    this.playJumpAnimation(this.IMAGES_JUMPING_END);
+                }
             } else {
                 this.hurtSoundPlayed = false;
                 this.jumpSoundPlayed = false;
@@ -174,9 +198,20 @@ class Character extends MovableObject {
 
     jump() {
         this.speedY = 30;
+        this.jumpPhase = 'start';
+        this.currentImage = 0;
         if (!this.jumpSoundPlayed) {
             this.jumpSound.play();
             this.jumpSoundPlayed = true;
+        }
+    }
+
+    playJumpAnimation(images) {
+        if (this.currentImage < images.length) {
+            this.img = this.imageCache[images[this.currentImage]];
+            this.currentImage++;
+        } else {
+            this.img = this.imageCache[images[images.length - 1]];
         }
     }
 
