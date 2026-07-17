@@ -8,7 +8,8 @@ class World {
     ];
     statusBoss = new StatusBoss();
     bossVisible = false;
-    throwableObjects = [new ThrowableObject(this.character.x, this.character.y)]
+    throwableObjects = [];
+    bottles = 0;
     canvas;
     ctx;
     keyboard;
@@ -124,6 +125,7 @@ class World {
     }
 
     checkCollisions() {
+        this.bottlesUsed();
         this.bottlesCollision();
         this.coinCollision();
         this.characterCollision();
@@ -138,7 +140,7 @@ class World {
                 // Jump-Kill
                 if (this.character.y + this.character.height < enemy.y + enemy.height * 0.7 &&
                     !(enemy instanceof ChickenBoss)) {
-                    enemy.jumpHit();
+                    enemy.kill();
                     this.character.speedY = 15;
                 }
                 // Schaden pro Gegner
@@ -158,9 +160,9 @@ class World {
                 if (bottle.isColliding(enemy)) {
                     if (enemy instanceof ChickenBoss) {
                         enemy.hit();
-                        this.statusbar[1].setPercentage(enemy.energy);
+                        this.statusBoss.setPercentage(enemy.energy);
                     } else if (!enemy.isDead() && !enemy.isDying) {
-                        enemy.jumpHit();
+                        enemy.kill();
                     }
                     bottle.splash();
                 }
@@ -176,7 +178,8 @@ class World {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.level.bottles.splice(index, 1);
-                let percentage = ((this.totalBottles - this.level.bottles.length) / this.totalBottles) * 100;
+                this.bottles++;
+                let percentage = (this.bottles / this.totalBottles) * 100;
                 this.statusbar[1].setPercentage(percentage);
             }
         })
@@ -193,10 +196,13 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.DOWN || this.keyboard.S) {
+        if ((this.keyboard.Space || this.keyboard.S) && this.bottles > 0) {
             if (this.canThrow) {
-                let bottle = new ThrowableObject(this.character.x, this.character.y)
+                let bottle = new ThrowableObject(this.character.x, this.character.y);
                 this.throwableObjects.push(bottle);
+                this.bottles--;
+                let percentage = (this.bottles / this.totalBottles) * 100;
+                this.statusbar[1].setPercentage(percentage);
                 this.canThrow = false;
                 setTimeout(() => {
                     this.canThrow = true;

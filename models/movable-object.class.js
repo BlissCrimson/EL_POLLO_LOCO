@@ -13,6 +13,9 @@ class MovableObject extends DrawableObject {
         right: 5
     };
 
+    /**
+     * 
+     */
     applyGravity() {
         this.gravityInterval = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -22,6 +25,10 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    /**
+     * 
+     * @returns 
+     */
     isAboveGround() {
         if (this.isDying) {
             return true;
@@ -34,6 +41,10 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * 
+     * @param {*} ctx 
+     */
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof ChickenBoss) {
             ctx.beginPath();
@@ -48,7 +59,11 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    // character.isColliding(chicken);
+    /**
+     * 
+     * @param {*} mo 
+     * @returns 
+     */
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
             this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
@@ -56,6 +71,9 @@ class MovableObject extends DrawableObject {
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
     }
 
+    /**
+     * 
+     */
     hit() {
         this.energy -= 10
         if (this.energy < 0) {
@@ -65,16 +83,27 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * 
+     * @returns 
+     */
     isDead() {
         return this.energy == 0;
     }
 
+    /**
+     * 
+     * @returns 
+     */
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; // Differenz in ms
-        timepassed = timepassed / 1000; //Differenz in s
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
         return timepassed < 1;
     }
 
+    /**
+     * 
+     */
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
@@ -91,11 +120,18 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    /**
+     * 
+     */
     moveLeft() {
         this.x -= this.speed;
         this.otherDirection = true;
     }
 
+    /**
+     * 
+     * @param {*} images 
+     */
     characterDead(images) {
         let i = this.currentImage % images.length
         let path = images[i];
@@ -103,11 +139,10 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    jumpHit() {
+    /**
+     * 
+     */
+    kill() {
         this.energy = 0;
-        // setTimeout(() => {
-        //     let index = this.world.level.enemies.indexOf(this);
-        //     this.world.level.enemies.splice(index, 1);
-        // }, 500);
     }
 }
