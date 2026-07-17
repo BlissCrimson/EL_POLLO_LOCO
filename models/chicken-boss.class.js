@@ -156,21 +156,22 @@ class ChickenBoss extends MovableObject {
             if (this.world?.paused) return;
             if (!this.world) {
                 return;
-            } if (this.isDying) {
-                return;
-            } else if (this.isDead()) {
+            }
+            if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.isDying = true;
-                this.deadSound.play();
-                clearInterval(this.attackTimer);
-                setTimeout(() => {
-                    let index = this.world.level.enemies.indexOf(this);
-                    this.world.level.enemies.splice(index, 1);
-                }, 600);
+                if (!this.isDying) {
+                    this.isDying = true;
+                    this.deadSound.play();
+                    clearInterval(this.attackTimer);
+                    setTimeout(() => {
+                        let index = this.world.level.enemies.indexOf(this);
+                        this.world.level.enemies.splice(index, 1);
+                    }, 600);
+                }
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAttacking) {
-                // Animation und Bewegung laufen komplett in attack()
+                // Animation and motion run complettly in attack()
             } else if (this.introWalking) {
                 if (this.x > this.introTargetX) {
                     this.moveLeft();

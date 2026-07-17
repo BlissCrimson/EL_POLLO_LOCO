@@ -222,9 +222,12 @@ class World {
     }
 
     checkWin() {
-        if (this.boss.isDead()) {
-            this.stopGame();
-            setTimeout(() => showEndscreen('win'), 1500);
+        if (this.boss.isDead() && !this.winTriggered) {
+            this.winTriggered = true;
+            setTimeout(() => {
+                this.stopGame();
+                showEndscreen('win');
+            }, 1500);
         }
     }
 }
