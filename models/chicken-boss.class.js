@@ -18,13 +18,33 @@ class ChickenBoss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/2_alert/G11.png',
         'assets/img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
-    IMAGES_ATTACK = [
+    // IMAGES_ATTACK = [
+    //     'assets/img/4_enemie_boss_chicken/3_attack/G13.png',
+    //     'assets/img/4_enemie_boss_chicken/3_attack/G14.png',
+    //     'assets/img/4_enemie_boss_chicken/3_attack/G15.png',
+    //     'assets/img/4_enemie_boss_chicken/3_attack/G16.png',
+    //     'assets/img/4_enemie_boss_chicken/3_attack/G17.png',
+    //     'assets/img/4_enemie_boss_chicken/3_attack/G18.png',
+    //     'assets/img/4_enemie_boss_chicken/3_attack/G19.png',
+    //     'assets/img/4_enemie_boss_chicken/3_attack/G20.png'
+    // ];
+    IMAGES_ATTACK_START = [
         'assets/img/4_enemie_boss_chicken/3_attack/G13.png',
         'assets/img/4_enemie_boss_chicken/3_attack/G14.png',
         'assets/img/4_enemie_boss_chicken/3_attack/G15.png',
-        'assets/img/4_enemie_boss_chicken/3_attack/G16.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G16.png'
+    ];
+    IMAGES_ATTACK_JUMP = [
+
         'assets/img/4_enemie_boss_chicken/3_attack/G17.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G18.png'
+    ];
+    IMAGES_ATTACK_BACK = [
         'assets/img/4_enemie_boss_chicken/3_attack/G18.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G17.png'
+
+    ];
+    IMAGES_ATTACK_END = [
         'assets/img/4_enemie_boss_chicken/3_attack/G19.png',
         'assets/img/4_enemie_boss_chicken/3_attack/G20.png'
     ];
@@ -40,33 +60,76 @@ class ChickenBoss extends MovableObject {
     ];
     currentImage = 0;
     hasSpottedCharacter = false;
-    canAttack = true;
+    attackInterval = 3000; // ms zwischen Angriffen, geschätzt – im Spiel testen
     isAttacking = false;
+    introWalking = false;
+    introTargetX; // Zielposition im Bild, Wert unten anpassen
+    speed = 6; // eigene Einlauf-Geschwindigkeit, Wert im Spiel testen
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_ATTACK_START);
+        this.loadImages(this.IMAGES_ATTACK_JUMP);
+        this.loadImages(this.IMAGES_ATTACK_BACK);
+        this.loadImages(this.IMAGES_ATTACK_END);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ALERT);
-        this.x = 400 + (719 * 2);
+        this.x = 900 + (719 * 2);
         // this.y = 460 - this.height;
         this.animate();
         this.deadSound = soundManager.registerSound('assets/audio/boss-dead.mp3');
         this.alertSound = soundManager.registerSound('assets/audio/boss-alert.mp3');
         this.hurtSound = soundManager.registerSound('assets/audio/chickenHurt.mp3');
     }
-
+    /**
+     * Startet die render Funktonen aller animationen.
+     */
     animate() {
         this.renderImages();
     }
 
+    /**
+     * Function für den Boss Angriff.
+     */
     attack() {
         this.isAttacking = true;
-        this.canAttack = false;
-        setTimeout(() => { this.isAttacking = false; }, this.IMAGES_ATTACK.length * (6000 / 60));
-        setTimeout(() => { this.canAttack = true; }, 1500);
+        const frameDuration = 6000 / 60;
+        const jumpDistance = 40;
+        const sequence = [
+            ...this.IMAGES_ATTACK_START,
+            ...this.IMAGES_ATTACK_JUMP,
+            ...this.IMAGES_ATTACK_BACK,
+            ...this.IMAGES_ATTACK_END
+        ];
+        let step = 0;
+
+        const attackAnimInterval = setInterval(() => {
+            this.img = this.imageCache[sequence[step]];
+            if (step === this.IMAGES_ATTACK_START.length) {
+                this.x -= jumpDistance;
+            }
+            if (step === this.IMAGES_ATTACK_START.length + this.IMAGES_ATTACK_JUMP.length) {
+                this.x += jumpDistance;
+            }
+            step++;
+            if (step >= sequence.length) {
+                clearInterval(attackAnimInterval);
+                this.isAttacking = false;
+            }
+        }, frameDuration);
+    }
+
+    /**
+     * Startet den festen Rythmus.
+     */
+    startAttackTimer() {
+        this.attackTimer = setInterval(() => {
+            if (!this.isDead() && !this.isDying && !this.isHurt() && !this.isAttacking) {
+                this.attack();
+            }
+        }, this.attackInterval);
     }
 
     isCharacterInAttackRange() {
@@ -95,10 +158,11 @@ class ChickenBoss extends MovableObject {
                 return;
             } if (this.isDying) {
                 return;
-            } if (this.isDead()) {
+            } else if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.isDying = true;
                 this.deadSound.play();
+                clearInterval(this.attackTimer);
                 setTimeout(() => {
                     let index = this.world.level.enemies.indexOf(this);
                     this.world.level.enemies.splice(index, 1);
@@ -106,20 +170,22 @@ class ChickenBoss extends MovableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAttacking) {
-                this.playAnimation(this.IMAGES_ATTACK);
-            } else if (this.hasSpottedCharacter && this.isCharacterInAttackRange() && this.canAttack) {
-                this.attack();
-            } else if (this.hasSpottedCharacter && this.isCharacterInAttackRange()) {
-                this.playAnimation(this.IMAGES_ALERT);
+                // Animation und Bewegung laufen komplett in attack()
+            } else if (this.introWalking) {
+                if (this.x > this.introTargetX) {
+                    this.moveLeft();
+                    this.playAnimation(this.IMAGES_WALKING);
+                } else {
+                    this.introWalking = false;
+                    this.startAttackTimer();
+                }
             } else if (this.hasSpottedCharacter) {
-                this.moveLeft();
-                this.playAnimation(this.IMAGES_WALKING);
-            } else if (this.world.character.x >= this.x - 350) {
+                this.playAnimation(this.IMAGES_ALERT);
+            } else if (this.world.character.x >= this.x - 700) {
                 this.hasSpottedCharacter = true;
                 this.alertSound.play();
-            } else if (this.world.character.x >= this.x - 500) {
-                this.moveLeft();    // walk to this.y = 1838
-                this.playAnimation(this.IMAGES_WALKING);
+                this.introWalking = true;
+                this.introTargetX = this.x - 400; // geschätzt, wie weit er ins Bild läuft
             }
         }, 6000 / 60);
     }
