@@ -1,3 +1,7 @@
+/**
+ * A collectible coin at a fixed position in the level.
+ * @extends MovableObject
+ */
 class Coin extends MovableObject {
     y = 360;
     width = 100;
@@ -7,12 +11,16 @@ class Coin extends MovableObject {
         'assets/img/8_coin/coin_2.png'
     ]
 
+    /**
+     * Creates a coin at the given position with a random coin image.
+     * @param {number} x - X position of the coin.
+     * @param {number} y - Y position of the coin.
+     */
     constructor(x, y) {
         super();
         this.x = x;
         this.y = y;
         let i = Math.round(Math.random());
         this.loadImage(this.COIN_IMAGES[i]);
-
     }
 }

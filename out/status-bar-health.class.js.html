@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: status-bar-health.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,50 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: status-bar-health.class.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Status bar showing the character's health.
+ * @extends StatusBar
+ */
+class StatusHealth extends StatusBar {
+    y = 34;
 
+    HEALTH_BAR = [
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
+    ];
 
-    <h3> </h3>
+    /**
+     * Loads the health bar images and starts at 100%.
+     */
+    constructor() {
+        super();
+        this.images = this.HEALTH_BAR;
+        this.loadImages(this.HEALTH_BAR);
+        this.setPercentage(100);
+    }
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    /**
+     * Not currently called; would set the percentage from world.energy.
+     */
+    setEnergy() {
+        this.percentage = this.world.energy;
+    }
+}</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,5 +1,8 @@
+/**
+ * Holds the current pressed/released state of all keys used to control the game.
+ */
 class Keyboard {
-    
+
     LEFT = false;
     RIGHT = false;
     UP = false;
@@ -11,6 +14,9 @@ class Keyboard {
     D = false;
     ENTER = false;
 
+    /**
+     * Creates the keyboard state object with all keys initially unset.
+     */
     constructor() {
 
     }

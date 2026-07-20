@@ -1,3 +1,7 @@
+/**
+ * A salsa bottle lying on the ground that the character can collect.
+ * @extends MovableObject
+ */
 class Bottle extends MovableObject {
     y = 360;
     width = 80;
@@ -23,6 +27,11 @@ class Bottle extends MovableObject {
     BOTTLE_IMAGE = [
         'assets/img/7_statusbars/3_icons/icon_salsa_bottle.png'
     ]
+
+    /**
+     * Creates a bottle at the given x position with a random ground image.
+     * @param {number} x - X position of the bottle.
+     */
     constructor(x) {
         super();
         let i = Math.round(Math.random());
