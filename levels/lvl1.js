@@ -1,3 +1,8 @@
+/**
+ * Creates level 1: the easiest level, with 5 chickens, 1 small chicken
+ * and the end boss, 8 bottles and 15 coins.
+ * @returns {Level} The level 1 instance.
+ */
 function createLevel1() {
     const chickenAt = (x, speed) => Object.assign(new Chicken(), { x, speed });
     const chickenSmallAt = (x, speed) => Object.assign(new ChickenSmall(), { x, speed });

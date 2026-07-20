@@ -1,3 +1,8 @@
+/**
+ * Returns the HTML markup for the controls dialog content,
+ * listing the key bindings for jump, walk and attack.
+ * @returns {string} HTML markup for the controls dialog.
+ */
 function getControllsDialogTemplate() {
   return `
 <header>
@@ -37,6 +42,12 @@ function getControllsDialogTemplate() {
 `
 }
 
+/**
+ * Returns the HTML markup for the settings dialog content,
+ * including sound/music/sfx toggles and volume sliders.
+ * Shows restart/home buttons only while a game is running.
+ * @returns {string} HTML markup for the settings dialog.
+ */
 function getSettingsDialogTemplate() {
   return `
 <header>
@@ -85,6 +96,10 @@ function getSettingsDialogTemplate() {
 `
 }
 
+/**
+ * Returns the HTML markup for the impressum dialog content.
+ * @returns {string} HTML markup for the impressum dialog.
+ */
 function getImpressumsDialogTemplate() {
   return `
       <header class="impressum__header">
