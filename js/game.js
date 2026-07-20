@@ -64,9 +64,8 @@ function closeDialog() {
 
 document.addEventListener('DOMContentLoaded', (e) => {
     soundManager.loadMuteState();
-    const backgroundMusic = soundManager.registerSound('assets/audio/background.mp3');
+    const backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
     backgroundMusic.loop = true;
-    backgroundMusic.volume = 0.5;
     backgroundMusic.play();
     document.getElementById('startGame').addEventListener('click', () => {
         init();
@@ -85,8 +84,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
             e.preventDefault();
         })
     });
-    soundManager.loadMuteState();
-    soundManager.toggleMuteIcon();
 });
 
 /**

@@ -106,8 +106,11 @@ class Character extends MovableObject {
     }
 
     animate() {
-
         this.animateInterval = setInterval(() => {
+            // keyRight();
+            // keyLeft();
+            // keyJump();
+            // keyAttack();
             if (this.world.paused) return;
             if (this.isDead()) {
                 this.walkingSound.pause();
