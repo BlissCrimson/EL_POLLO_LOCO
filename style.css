@@ -355,6 +355,16 @@ button:hover {
   background: none;
 }
 
+.button__settings-game {
+  width: 30px;
+  height: 30px;
+  border: none;
+  position: absolute;
+  top: 12%;
+  right: 5%;
+  background: none;
+}
+
 .button__mobile {
   width: 30px;
   height: 30px;
@@ -465,7 +475,8 @@ button:hover {
 
   h1,
   p,
-  .button__fullscreen {
+  .button__fullscreen,
+  .button__settings-game {
     display: none;
   }
 

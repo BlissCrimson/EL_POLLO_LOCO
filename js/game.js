@@ -52,7 +52,9 @@ function openDialog(type) {
     }
     dialogRef = document.getElementById('dialogContent');
     dialogRef.showModal();
-
+    if (world && !world.stopped) {
+        world.pauseGame();
+    }
 }
 
 /**
@@ -72,6 +74,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
     });
     document.getElementById('dialogContent').addEventListener('click', (e) => {
         if (e.target === document.getElementById('dialogContent')) closeDialog();
+    });
+    document.getElementById('dialogContent').addEventListener('close', () => {
+        if (world && !world.stopped) {
+            world.resumeGame();
+        }
     });
     document.querySelectorAll('.button__mobile').forEach(btn => {
         btn.addEventListener('touchstart', () => {
@@ -94,6 +101,7 @@ function init() {
     document.getElementById('startScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
     document.getElementById('fullscreenBtnGame').classList.remove('d_none');
+    document.getElementById('settingsBtnGame').classList.remove('d_none');
     canvas = document.getElementById('canvas');
     toggleMobileButtons(true);
     startLevel(currentLevel);
@@ -111,6 +119,7 @@ function restartGame() {
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('canvas').classList.remove('d_none');
     document.getElementById('fullscreenBtnGame').classList.remove('d_none');
+    document.getElementById('settingsBtnGame').classList.remove('d_none');
     toggleMobileButtons(true);
     startLevel(currentLevel);
 }
@@ -138,6 +147,7 @@ function showHomeScreen() {
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('startScreen').classList.remove('d_none');
     document.getElementById('fullscreenBtnGame').classList.add('d_none');
+    document.getElementById('settingsBtnGame').classList.add('d_none');
     toggleMobileButtons(false);
 }
 
