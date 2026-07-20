@@ -374,6 +374,7 @@ button:hover {
   display: none;
   justify-content: center;
   align-items: center;
+  background: #d64417;
 }
 
 .button__mobile--left {
@@ -475,42 +476,41 @@ button:hover {
 
   h1,
   p,
-  .button__fullscreen,
-  .button__settings-game {
+  .button__fullscreen {
     display: none;
   }
+}
 
-  .game-wrapper {
-    position: fixed;
-    top: 50vh;
-    left: 50vw;
-    margin: -240px 0 0 -360px;
-    transform-origin: center center;
-  }
+.game-wrapper {
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  margin: -240px 0 0 -360px;
+  transform-origin: center center;
+}
 
-  .button__mobile {
-    display: flex;
-  }
+.button__mobile {
+  display: flex;
+}
 
-  .button__mute,
-  .button__settings {
-    top: 10%;
-  }
+.button__mute,
+.button__settings {
+  top: 10%;
+}
 
-  .button__play {
-    top: 55%;
-  }
+.button__play {
+  top: 55%;
+}
 
-  .button__instructions {
-    bottom: 10%;
-  }
+.button__instructions {
+  bottom: 10%;
+}
 
-  .start-screen,
-  .endscreen {
-    width: 100%;
-    height: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+.start-screen,
+.endscreen {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }

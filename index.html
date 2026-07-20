@@ -100,12 +100,14 @@
     <div id="endScreen" class="endscreen d_none">
       <img id="endScreenImg" class="endscreen endscreen__background" src="" alt="" srcset="">
       <img id="resultImg" class="endscreen endscreen__result" src="" alt="">
-      <button onclick="restartGame()">
-        restart
-      </button>
-      <button onclick="showHomeScreen()">
-        Home
-      </button>
+      <div class="endscreen__button">
+        <button class="button" onclick="restartGame()">
+          restart
+        </button>
+        <button class="button" onclick="showHomeScreen()">
+          Home
+        </button>
+      </div>
     </div>
     <button id="fullscreenBtn" class="button__fullscreen" onclick="toggleFullscreen()">
       <img class="button__img" src="./assets/icons/fullscreen.png" alt="">

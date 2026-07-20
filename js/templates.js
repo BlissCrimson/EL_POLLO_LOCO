@@ -75,6 +75,11 @@ function getSettingsDialogTemplate() {
           <input type="range" class="settings__range" min="0" max="1" step="0.05"
             value="${soundManager.sfxVolume}" oninput="soundManager.setSfxVolume(this.value)">
         </div>
+        ${world && !world.stopped ? `
+        <div class="settings__row">
+          <button class="button" onclick="restartFromSettings()">RESTART</button>
+          <button class="button" onclick="goHomeFromSettings()">HOME</button>
+        </div>` : ''}
         <a href="impressum.html" class="button button__impressum-settings">IMPRESSUM</a>
       </main>
 `

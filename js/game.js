@@ -4,6 +4,7 @@ let world;
 let keyboard = new Keyboard();
 let currentLevel = 0;
 let soundManager = new SoundManager();
+let skipResumeOnClose = false;
 const orientationQuery = window.matchMedia('(orientation: portrait) and (max-width: 933px)');
 const keyMap = {
     'ArrowLeft': 'LEFT',
@@ -76,6 +77,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
         if (e.target === document.getElementById('dialogContent')) closeDialog();
     });
     document.getElementById('dialogContent').addEventListener('close', () => {
+        if (skipResumeOnClose) {
+            skipResumeOnClose = false;
+            return;
+        }
         if (world && !world.stopped) {
             world.resumeGame();
         }
@@ -196,3 +201,21 @@ window.addEventListener('resize', scaleGame);
 window.addEventListener('orientationchange', scaleGame);
 document.addEventListener('fullscreenchange', scaleGame);
 scaleGame();
+
+/**
+ * FUnction to restart game from settings dialog.
+ */
+function restartFromSettings() {
+    skipResumeOnClose = true;
+    closeDialog();
+    restartGame();
+}
+
+/**
+ * Function to go back to Homescreen from settings dialog.
+ */
+function goHomeFromSettings() {
+    skipResumeOnClose = true;
+    closeDialog();
+    showHomeScreen();
+}

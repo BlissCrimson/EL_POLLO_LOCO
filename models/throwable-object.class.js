@@ -23,6 +23,7 @@ class ThrowableObject extends MovableObject {
         this.y = 100;
         this.height = 50;
         this.width = 60;
+        this.breakSound = soundManager.registerSound('assets/audio/bottle-break.mp3');
         this.throw(x, y);
     }
 
@@ -47,6 +48,7 @@ class ThrowableObject extends MovableObject {
     splash() {
         if (this.isSplashing) return;
         this.isSplashing = true;
+        this.breakSound.play();
         this.stopThrow();
         this.currentImage = 0;
         this.splashInterval = setInterval(() => {
