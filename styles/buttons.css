@@ -1,0 +1,137 @@
+button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: none;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.button {
+    letter-spacing: 1px;
+    color: #7a3c00;
+    background: #362610;
+    box-shadow: 0 6px 0 #a07800, 0 7px 8px rgba(0, 0, 0, 0.4);
+    transition: transform 0.08s, box-shadow 0.08s;
+    font-size: 24px;
+}
+
+.button__img {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+}
+
+.button__instructions {
+    padding: 0;
+    position: absolute;
+    left: 2%;
+    bottom: 20%;
+    align-items: center;
+}
+
+.button__mute {
+    position: absolute;
+    top: 2%;
+    left: 10%;
+    padding: 0;
+    width: 48px;
+    height: 48px;
+    padding: 2px;
+}
+
+.button__play {
+    padding: 0 2px;
+    position: absolute;
+    top: 47%;
+    left: 31%;
+    transform: translate(-0%, -0%);
+    font-size: 24px
+}
+
+.button__settings {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    align-items: center;
+}
+
+.button__impressum {
+    font-size: 16px;
+    padding: 2px;
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    border-radius: 6px;
+}
+
+.button__fullscreen {
+    width: 30px;
+    height: 30px;
+    border: none;
+    position: absolute;
+    top: 81%;
+    right: 5%;
+    background: none;
+}
+
+.button__settings-game {
+    width: 30px;
+    height: 30px;
+    border: none;
+    position: absolute;
+    top: 12%;
+    right: 5%;
+    background: none;
+}
+
+.button__mobile {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 3%;
+    border-radius: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: #d64417;
+}
+
+.button__mobile--left {
+    left: 5%;
+}
+
+.button__mobile--right {
+    left: 20%;
+}
+
+.button__mobile--jump {
+    right: 5%;
+    bottom: 15%;
+}
+
+.button__mobile--attack {
+    color: black;
+    right: 5%;
+}
+
+.button__mobile {
+    display: flex;
+}
+
+.button__mute,
+.button__settings {
+    top: 10%;
+}
+
+.button__play {
+    top: 55%;
+}
+
+.button__instructions {
+    bottom: 10%;
+}
