@@ -34,7 +34,7 @@
 function getControllsDialogTemplate() {
   return `
 &lt;header>
-        &lt;h2>&lt;img class="button__img" src="./assets/icons/controlls.svg" alt="">CONTROLLS&lt;/h2>
+        &lt;h2>&lt;img class="button__img" src="../assets/icons/controlls.svg" alt="">CONTROLLS&lt;/h2>
       &lt;/header>
       &lt;main>
         &lt;table>
@@ -48,22 +48,22 @@ function getControllsDialogTemplate() {
           &lt;tr>
             &lt;td>Jump&lt;/td>
             &lt;td>&lt;span class="key key--letter">W&lt;/span>&lt;/td>
-            &lt;td>&lt;span class="key key--arrow">&lt;img class="key__icon key__icon--up" src="./assets/icons/arrow.png" alt="Pfeiltaste hoch">&lt;/span>&lt;/td>
+            &lt;td>&lt;span class="key key--arrow">&lt;img class="key__icon key__icon--up" src="../assets/icons/arrow.png" alt="Pfeiltaste hoch">&lt;/span>&lt;/td>
           &lt;/tr>
           &lt;tr>
             &lt;td>Walk Left&lt;/td>
             &lt;td>&lt;span class="key key--letter">A&lt;/span>&lt;/td>
-            &lt;td>&lt;span class="key key--arrow">&lt;img class="key__icon key__icon--left" src="./assets/icons/arrow.png" alt="Pfeiltaste links">&lt;/span>&lt;/td>
+            &lt;td>&lt;span class="key key--arrow">&lt;img class="key__icon key__icon--left" src="../assets/icons/arrow.png" alt="Pfeiltaste links">&lt;/span>&lt;/td>
           &lt;/tr>
           &lt;tr>
             &lt;td>Walk Right&lt;/td>
             &lt;td>&lt;span class="key key--letter">D&lt;/span>&lt;/td>
-            &lt;td>&lt;span class="key key--arrow">&lt;img class="key__icon key__icon--right" src="./assets/icons/arrow.png" alt="Pfeiltaste rechts">&lt;/span>&lt;/td>
+            &lt;td>&lt;span class="key key--arrow">&lt;img class="key__icon key__icon--right" src="../assets/icons/arrow.png" alt="Pfeiltaste rechts">&lt;/span>&lt;/td>
           &lt;/tr>
           &lt;tr>
             &lt;td>Attack&lt;/td>
             &lt;td>&lt;span class="key key--letter">S&lt;/span>&lt;/td>
-            &lt;td>&lt;span class="key key--arrow">&lt;img class="key__icon key__icon--down" src="./assets/icons/arrow.png" alt="Pfeiltaste runter">&lt;/span>&lt;/td>
+            &lt;td>&lt;span class="key key--arrow">&lt;img class="key__icon key__icon--down" src="../assets/icons/arrow.png" alt="Pfeiltaste runter">&lt;/span>&lt;/td>
           &lt;/tr>
         &lt;/table>
       &lt;/main>      
@@ -79,26 +79,26 @@ function getControllsDialogTemplate() {
 function getSettingsDialogTemplate() {
   return `
 &lt;header>
-        &lt;h2>&lt;img class="button__img" src="./assets/icons/settings.svg" alt="">SETTINGS&lt;/h2>
+        &lt;h2>&lt;img class="button__img" src="../assets/icons/settings.svg" alt="">SETTINGS&lt;/h2>
       &lt;/header>
       &lt;main>
         &lt;div class="settings__row">
           &lt;span class="settings__label">Sound&lt;/span>
           &lt;button class="button button__toggle" onclick="toggleMute()">
-            &lt;img class="icon-mute settings__icon" src="${soundManager.muted ? './assets/icons/sound_off.svg' : './assets/icons/sound_on.svg'}" alt="">
+            &lt;img class="icon-mute settings__icon" src="${soundManager.muted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg'}" alt="">
           &lt;/button>
         &lt;/div>
         &lt;div class="settings__row">
           &lt;span class="settings__label">Vollbild&lt;/span>
           &lt;button class="button button__toggle" onclick="toggleFullscreen()">
-            &lt;img class="settings__icon" src="./assets/icons/fullscreen.png" alt="">
+            &lt;img class="settings__icon" src="../assets/icons/fullscreen.png" alt="">
           &lt;/button>
         &lt;/div>
         &lt;div class="settings__slider">
           &lt;div class="settings__row">
             &lt;span class="settings__label">Musik&lt;/span>
             &lt;button class="button button__toggle" onclick="soundManager.toggleMusicMute()">
-              &lt;img class="icon-music-mute settings__icon" src="${soundManager.musicMuted ? './assets/icons/sound_off.svg' : './assets/icons/sound_on.svg'}" alt="">
+              &lt;img class="icon-music-mute settings__icon" src="${soundManager.musicMuted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg'}" alt="">
             &lt;/button>
           &lt;/div>
           &lt;input type="range" class="settings__range" min="0" max="1" step="0.05"
@@ -108,7 +108,7 @@ function getSettingsDialogTemplate() {
           &lt;div class="settings__row">
             &lt;span class="settings__label">Effekte&lt;/span>
             &lt;button class="button button__toggle" onclick="soundManager.toggleSfxMute()">
-              &lt;img class="icon-sfx-mute settings__icon" src="${soundManager.sfxMuted ? './assets/icons/sound_off.svg' : './assets/icons/sound_on.svg'}" alt="">
+              &lt;img class="icon-sfx-mute settings__icon" src="${soundManager.sfxMuted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg'}" alt="">
             &lt;/button>
           &lt;/div>
           &lt;input type="range" class="settings__range" min="0" max="1" step="0.05"
@@ -166,7 +166,7 @@ function getImpressumsDialogTemplate() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Jul 20 2026 22:23:35 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Tue Jul 21 2026 09:55:00 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

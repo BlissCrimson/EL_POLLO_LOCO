@@ -163,11 +163,11 @@ function showEndscreen(win) {
     toggleMobileButtons(false);
     document.getElementById('endScreen').classList.remove('d_none');
     if (win === "win") {
-        document.getElementById('endScreenImg').src = './assets/img/5_background/background_win.png';
-        document.getElementById('resultImg').src = './assets/img/You won, you lost/You Win A.png';
+        document.getElementById('endScreenImg').src = '../assets/img/5_background/background_win.png';
+        document.getElementById('resultImg').src = '../assets/img/You won, you lost/You Win A.png';
     } else {
-        document.getElementById('endScreenImg').src = './assets/img/5_background/background_lose.png';
-        document.getElementById('resultImg').src = './assets/img/You won, you lost/Game Over.png';
+        document.getElementById('endScreenImg').src = '../assets/img/5_background/background_lose.png';
+        document.getElementById('resultImg').src = '../assets/img/You won, you lost/Game Over.png';
     }
 }
 

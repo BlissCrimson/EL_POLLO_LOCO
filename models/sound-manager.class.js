@@ -124,7 +124,7 @@ class SoundManager {
      */
     toggleMuteIcon() {
         document.querySelectorAll('.icon-mute').forEach(icon => {
-            icon.src = this.muted ? './assets/icons/sound_off.svg' : './assets/icons/sound_on.svg';
+            icon.src = this.muted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg';
         });
     }
 
@@ -133,7 +133,7 @@ class SoundManager {
      */
     toggleMusicMuteIcon() {
         document.querySelectorAll('.icon-music-mute').forEach(icon => {
-            icon.src = this.musicMuted ? './assets/icons/sound_off.svg' : './assets/icons/sound_on.svg';
+            icon.src = this.musicMuted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg';
         });
     }
 
@@ -142,7 +142,7 @@ class SoundManager {
      */
     toggleSfxMuteIcon() {
         document.querySelectorAll('.icon-sfx-mute').forEach(icon => {
-            icon.src = this.sfxMuted ? './assets/icons/sound_off.svg' : './assets/icons/sound_on.svg';
+            icon.src = this.sfxMuted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg';
         });
     }
 }
