@@ -83,8 +83,13 @@ document.addEventListener('DOMContentLoaded', (e) => {
     soundManager.loadMuteState();
     const backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
     backgroundMusic.loop = true;
+
+    const startMusicOnce = () => backgroundMusic.play();
+    document.addEventListener('click', startMusicOnce, { once: true });
+    document.addEventListener('keydown', startMusicOnce, { once: true });
+    document.addEventListener('touchstart', startMusicOnce, { once: true });
+
     document.getElementById('startGame').addEventListener('click', () => {
-        backgroundMusic.play();
         init();
     });
     document.getElementById('dialogContent').addEventListener('click', (e) => {
@@ -100,12 +105,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
         }
     });
     document.querySelectorAll('.button__mobile').forEach(btn => {
+        const release = () => { keyboard[btn.dataset.key] = false; };
         btn.addEventListener('touchstart', () => {
             keyboard[btn.dataset.key] = true;
         });
-        btn.addEventListener('touchend', () => {
-            keyboard[btn.dataset.key] = false;
-        });
+        btn.addEventListener('touchend', release);
+        btn.addEventListener('touchcancel', release);
         btn.addEventListener('contextmenu', (e) => {
             e.preventDefault();
         })

@@ -221,7 +221,8 @@ class World {
      * @param {MovableObject} enemy - The enemy the character collided with.
      */
     handleCharacterEnemyCollision(enemy) {
-        const isJumpKill = this.character.y + this.character.height < enemy.y + enemy.height * 0.7 &&
+        const isJumpKill = this.character.speedY < 0 &&
+            this.character.y + this.character.height < enemy.y + enemy.height * 0.7 &&
             !(enemy instanceof ChickenBoss);
         if (isJumpKill) {
             enemy.kill();

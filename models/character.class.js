@@ -72,6 +72,12 @@ class Character extends MovableObject {
     ];
     currentImage = 0;
     world;
+    offset = {
+        top: 85,
+        bottom: 0,
+        left: 13,
+        right: 13
+    }
 
     /**
      * Loads all animations and sounds, then starts falling under gravity.
@@ -205,15 +211,15 @@ class Character extends MovableObject {
      * has finished.
      */
     handleDeathAnimation() {
-    if (!this.isDying) {
-        this.startDying();
-        this.currentImage = 0;
+        if (!this.isDying) {
+            this.startDying();
+            this.currentImage = 0;
+        }
+        this.playAnimation(this.IMAGES_DEAD);
+        if (this.currentImage >= this.IMAGES_DEAD.length) {
+            showEndscreen('lose');
+        }
     }
-    this.playAnimation(this.IMAGES_DEAD);
-    if (this.currentImage >= this.IMAGES_DEAD.length) {
-        showEndscreen('lose');
-    }
-}
     /**
      * Sets the falling state and plays the game-over sound once.
      */

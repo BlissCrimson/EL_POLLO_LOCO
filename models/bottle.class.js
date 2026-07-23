@@ -27,7 +27,12 @@ class Bottle extends MovableObject {
     BOTTLE_IMAGE = [
         'assets/img/7_statusbars/3_icons/icon_salsa_bottle.png'
     ]
-
+    offset = {
+        top: 16,
+        bottom: 9,
+        left: 23,
+        right: 15
+    }
     /**
      * Creates a bottle at the given x position with a random ground image.
      * @param {number} x - X position of the bottle.

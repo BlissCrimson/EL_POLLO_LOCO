@@ -10,6 +10,12 @@ class Coin extends MovableObject {
         'assets/img/8_coin/coin_1.png',
         'assets/img/8_coin/coin_2.png'
     ]
+    offset = {
+        top: 30,
+        bottom: 30,
+        left: 30,
+        right: 30
+    }
 
     /**
      * Creates a coin at the given position with a random coin image.
