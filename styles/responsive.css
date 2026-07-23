@@ -26,7 +26,7 @@
 @media (orientation: landscape) and (max-width: 933px) {
 
     html,
-    body {
+    body:not(.impressum__body) {
         position: fixed;
         overflow: hidden;
         height: 100%;
@@ -36,13 +36,27 @@
         display: block;
     }
 
-    body {
+    body:not(.impressum__body) {
         position: relative;
     }
 
-    h1,
-    p,
+    body:not(.impressum__body) h1,
+    body:not(.impressum__body) p,
     .button__fullscreen {
         display: none;
+    }
+
+    body:not(.impressum__body) .button__home {
+        position: fixed;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .impressum__body {
+        .button__home {
+            position: absolute;
+            bottom: 1%;
+            border-radius: 6px;
+        }
     }
 }

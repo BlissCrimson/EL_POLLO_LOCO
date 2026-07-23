@@ -39,8 +39,8 @@ function startLevel(index) {
  */
 function openDialog(type) {
     const title = document.getElementById('dialogTitle');
-    const content = document.getElementById('dialogMain')
-    dialogTypes(type);
+    const content = document.getElementById('dialogMain');
+    dialogTypes(type, title, content);
     dialogRef = document.getElementById('dialogContent');
     dialogRef.showModal();
     if (world && !world.stopped) {
@@ -52,7 +52,7 @@ function openDialog(type) {
  * Fills the dialog title and content based on the given type.
  * @param {string} type - Dialog type: 'settings', 'controlls' or 'impressum'.
  */
-function dialogTypest(type) {
+function dialogTypes(type, title, content) {
     if (type === 'settings') {
         title.textContent = 'SETTINGS';
         content.innerHTML = getSettingsDialogTemplate();
@@ -83,8 +83,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
     soundManager.loadMuteState();
     const backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
     backgroundMusic.loop = true;
-    backgroundMusic.play();
     document.getElementById('startGame').addEventListener('click', () => {
+        backgroundMusic.play();
         init();
     });
     document.getElementById('dialogContent').addEventListener('click', (e) => {

@@ -18,8 +18,8 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/2_walk/W-26.png'
     ];
     IMAGES_JUMPING_START = [
-        'assets/img/2_character_pepe/3_jump/J-31.png',
-        'assets/img/2_character_pepe/3_jump/J-32.png',
+        // 'assets/img/2_character_pepe/3_jump/J-31.png',
+        // 'assets/img/2_character_pepe/3_jump/J-32.png',
         'assets/img/2_character_pepe/3_jump/J-33.png',
         'assets/img/2_character_pepe/3_jump/J-34.png'
     ];
@@ -205,13 +205,15 @@ class Character extends MovableObject {
      * has finished.
      */
     handleDeathAnimation() {
-        this.playAnimation(this.IMAGES_DEAD);
-        if (!this.isDying) this.startDying();
-        if (this.currentImage >= this.IMAGES_DEAD.length) {
-            showEndscreen('lose');
-        }
+    if (!this.isDying) {
+        this.startDying();
+        this.currentImage = 0;
     }
-
+    this.playAnimation(this.IMAGES_DEAD);
+    if (this.currentImage >= this.IMAGES_DEAD.length) {
+        showEndscreen('lose');
+    }
+}
     /**
      * Sets the falling state and plays the game-over sound once.
      */
