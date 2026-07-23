@@ -150,21 +150,47 @@ class Character extends MovableObject {
      */
     handleMovementInput() {
         const kb = this.world.keyboard;
-        if ((kb.RIGHT || kb.D) && this.x < this.world.level.level_end_x) {
+        const inArena = this.world.boss?.hasSpottedCharacter;
+        const leftBound = inArena ? this.world.arenaLeftBound : 0;
+        const rightBound = inArena ? this.world.arenaRightBound : this.world.level.level_end_x;
+        this.movementRight(kb, rightBound);
+        this.movementLeft(kb, leftBound);
+        this.movementStop(kb);
+    }
+
+    /**
+     * Moves the character right based on pressed keys and updates
+     * the walking sound accordingly.
+     */
+    movementRight(kb, rightBound) {
+        if ((kb.RIGHT || kb.D) && this.x < rightBound) {
             this.moveRight();
             this.walkingSound.play();
             this.lastMovementTime = new Date().getTime();
         }
-        if ((kb.LEFT || kb.A) && this.x > 0) {
+    }
+
+    /**
+     * Moves the character left based on pressed keys and updates
+     * the walking sound accordingly.
+     */
+    movementLeft(kb, leftBound) {
+        if ((kb.LEFT || kb.A) && this.x > leftBound) {
             this.moveLeft();
             this.walkingSound.play();
             this.lastMovementTime = new Date().getTime();
         }
+    }
+
+    /**
+     * Stopped the character based on pressed keys and updates
+     * the walking sound accordingly.
+     */
+    movementStop(kb) {
         if (!kb.RIGHT && !kb.D && !kb.LEFT && !kb.A) {
             this.stopWalkingSound();
         }
     }
-
     /**
      * Triggers a jump when the jump key is pressed and the character
      * is standing on the ground.

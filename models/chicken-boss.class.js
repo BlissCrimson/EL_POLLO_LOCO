@@ -95,7 +95,7 @@ class ChickenBoss extends MovableObject {
     attack() {
         this.isAttacking = true;
         const frameDuration = 6000 / 60;
-        const jumpDistance = 40;
+        const jumpDistance = this.world.canvas.width * 0.4;
         const sequence = this.getAttackSequence();
         this.runAttackAnimation(sequence, frameDuration, jumpDistance);
     }
@@ -141,11 +141,14 @@ class ChickenBoss extends MovableObject {
      * @param {number} jumpDistance - Distance the boss moves during the jump.
      */
     applyAttackJumpOffset(step, jumpDistance) {
-        if (step === this.IMAGES_ATTACK_START.length) {
-            this.x -= jumpDistance;
+        const jumpStart = this.IMAGES_ATTACK_START.length;
+        const jumpEnd = jumpStart + this.IMAGES_ATTACK_JUMP.length;
+        const backEnd = jumpEnd + this.IMAGES_ATTACK_BACK.length;
+        if (step >= jumpStart && step < jumpEnd) {
+            this.x -= jumpDistance / this.IMAGES_ATTACK_JUMP.length;
         }
-        if (step === this.IMAGES_ATTACK_START.length + this.IMAGES_ATTACK_JUMP.length) {
-            this.x += jumpDistance;
+        if (step >= jumpEnd && step < backEnd) {
+            this.x += jumpDistance / this.IMAGES_ATTACK_BACK.length;
         }
     }
 
@@ -260,6 +263,10 @@ class ChickenBoss extends MovableObject {
         this.hasSpottedCharacter = true;
         this.alertSound.play();
         this.introWalking = true;
-        this.introTargetX = this.x - 400; // geschätzt, wie weit er ins Bild läuft
+        this.introTargetX = this.x - 400;
+
+        const char = this.world.character;
+        this.world.arenaLeftBound = char.x - 100;
+        this.world.arenaRightBound = char.x - 100 + this.world.canvas.width - char.width;
     }
 }
