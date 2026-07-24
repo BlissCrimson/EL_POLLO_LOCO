@@ -5,9 +5,6 @@
  */
 function getControllsDialogTemplate() {
   return `
-<header>
-        <h2><img class="button__img" src="../assets/icons/controlls.svg" alt="">CONTROLLS</h2>
-      </header>
       <main>
         <table>
           <thead>
@@ -50,16 +47,7 @@ function getControllsDialogTemplate() {
  */
 function getSettingsDialogTemplate() {
   return `
-<header>
-        <h2><img class="button__img" src="../assets/icons/settings.svg" alt="">SETTINGS</h2>
-      </header>
-      <main>
-        <div class="settings__row">
-          <span class="settings__label">Sound</span>
-          <button class="button button__toggle" onclick="toggleMute()">
-            <img class="icon-mute settings__icon" src="${soundManager.muted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg'}" alt="">
-          </button>
-        </div>
+      <main>        
         <div class="settings__row">
           <span class="settings__label">Vollbild</span>
           <button class="button button__toggle" onclick="toggleFullscreen()">

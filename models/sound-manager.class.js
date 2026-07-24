@@ -9,17 +9,19 @@ class SoundManager {
     musicMuted = false;
     sfxMuted = false;
     musicVolume = 0.5;
-    sfxVolume = 1;
+    sfxVolume = 0.5;
 
     /**
-     * Creates and registers a new sound, applying the current mute/volume
-     * state for its type.
-     * @param {string} path - Path to the audio file.
-     * @param {string} [type='sfx'] - 'music' or 'sfx'.
-     * @returns {HTMLAudioElement} The created audio element.
-     */
-    registerSound(path, type = 'sfx') {
+ * Creates and registers a new sound, applying the current mute/volume
+ * state for its type.
+ * @param {string} path - Path to the audio file.
+ * @param {string} [type='sfx'] - 'music' or 'sfx'.
+ * @param {number} [volumeFactor=1] - Multiplier on top of the group volume.
+ * @returns {HTMLAudioElement} The created audio element.
+ */
+    registerSound(path, type = 'sfx', volumeFactor = 1) {
         let sound = new Audio(path);
+        sound.volumeFactor = volumeFactor;
         if (type === 'music') {
             this.musicSounds.push(sound);
         } else {
@@ -30,17 +32,19 @@ class SoundManager {
     }
 
     /**
-     * Applies the current mute and volume settings to a single sound.
+     * Applies the current mute and volume settings to a single sound,
+     * scaled by the sound's own volume factor.
      * @param {HTMLAudioElement} sound - The sound to update.
      * @param {string} type - 'music' or 'sfx'.
      */
     updateSound(sound, type) {
+        const factor = sound.volumeFactor ?? 1;
         if (type === 'music') {
             sound.muted = this.muted || this.musicMuted;
-            sound.volume = this.musicVolume;
+            sound.volume = this.musicVolume * factor;
         } else {
             sound.muted = this.muted || this.sfxMuted;
-            sound.volume = this.sfxVolume;
+            sound.volume = this.sfxVolume * factor;
         }
     }
 
@@ -110,9 +114,9 @@ class SoundManager {
         this.musicMuted = localStorage.getItem('musicMuted') === 'true';
         this.sfxMuted = localStorage.getItem('sfxMuted') === 'true';
         this.musicVolume = localStorage.getItem('musicVolume') !== null
-            ? parseFloat(localStorage.getItem('musicVolume')) : 1;
+            ? parseFloat(localStorage.getItem('musicVolume')) : 0.5;
         this.sfxVolume = localStorage.getItem('sfxVolume') !== null
-            ? parseFloat(localStorage.getItem('sfxVolume')) : 1;
+            ? parseFloat(localStorage.getItem('sfxVolume')) : 0.5;
         this.updateAllSounds();
         this.toggleMuteIcon();
         this.toggleMusicMuteIcon();
@@ -143,6 +147,16 @@ class SoundManager {
     toggleSfxMuteIcon() {
         document.querySelectorAll('.icon-sfx-mute').forEach(icon => {
             icon.src = this.sfxMuted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg';
+        });
+    }
+
+    /**
+     * Stops and resets all registered SFX sounds. Music is left untouched.
+     */
+    stopAllSounds() {
+        this.sfxSounds.forEach(sound => {
+            sound.pause();
+            sound.currentTime = 0;
         });
     }
 }

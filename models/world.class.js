@@ -329,7 +329,8 @@ class World {
             this.gameOverTriggered = true;
             setTimeout(() => {
                 this.stopGame();
-                showEndscreen('lose')
+                soundManager.stopAllSounds();
+                showEndscreen('lose');
             }, 1500);
         }
     }
@@ -342,6 +343,7 @@ class World {
             this.winTriggered = true;
             setTimeout(() => {
                 this.stopGame();
+                soundManager.stopAllSounds();
                 showEndscreen('win');
             }, 1500);
         }

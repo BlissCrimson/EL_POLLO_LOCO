@@ -116,7 +116,7 @@ class Character extends MovableObject {
         this.jumpSound = soundManager.registerSound('assets/audio/jump.mp3');
         this.hurtSound = soundManager.registerSound('assets/audio/ouch.mp3');
         this.snoringSound = soundManager.registerSound('assets/audio/snoring.mp3');
-        this.gameOverSound = soundManager.registerSound('assets/audio/game-over.mp3');
+        this.gameOverSound = soundManager.registerSound('assets/audio/game-over.mp3', 'sfx', 0.2);
         this.walkingSound.loop = true;
         this.snoringSound.loop = true;
     }
