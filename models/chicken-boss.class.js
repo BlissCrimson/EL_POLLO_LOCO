@@ -55,11 +55,18 @@ class ChickenBoss extends MovableObject {
     ];
     currentImage = 0;
     hasSpottedCharacter = false;
-    attackInterval = 3000; // ms zwischen Angriffen, geschätzt – im Spiel testen
+    attackInterval = 2000; 
     isAttacking = false;
     introWalking = false;
-    introTargetX; // Zielposition im Bild, Wert unten anpassen
-    speed = 6; // eigene Einlauf-Geschwindigkeit, Wert im Spiel testen
+    introTargetX; 
+    // Intro walk speed from boss:
+    speed = 20; 
+    offset = {
+        top: 62,
+        bottom: 14,
+        left: 25,
+        right: 9
+    };
 
     /**
      * Loads all animation images and sounds and positions the boss
@@ -185,6 +192,7 @@ class ChickenBoss extends MovableObject {
      * Damages the boss and plays the hurt sound.
      */
     hit() {
+        if (this.isHurt()) return;
         this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;

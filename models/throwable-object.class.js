@@ -19,6 +19,7 @@ class ThrowableObject extends MovableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
+    RANGE = 340;
 
     /**
      * Loads all images, registers the break sound and starts the throw.
@@ -47,7 +48,9 @@ class ThrowableObject extends MovableObject {
     throw(x, y) {
         this.x = x;
         this.y = y;
-        this.speedY = 10;
+        this.speedY = 16;
+        const ticks = this.calculateFlightTicks(y);
+        this.stepX = this.RANGE / ticks;
         this.applyGravity();
         this.startFlight();
         this.startRotationAnimation();
@@ -64,7 +67,7 @@ class ThrowableObject extends MovableObject {
                 this.splash();
                 return;
             }
-            this.x += 17;
+            this.x += this.stepX;
         }, 40);
     }
 
@@ -103,5 +106,17 @@ class ThrowableObject extends MovableObject {
         clearInterval(this.flightInterval);
         clearInterval(this.animationInterval);
         clearInterval(this.gravityInterval);
+    }
+
+    /**
+     * 
+     * @param {*} startY 
+     * @returns 
+     */
+    calculateFlightTicks(startY) {
+        const a = this.acceleration;
+        const v0 = this.speedY;
+        const drop = this.GROUND_Y - startY;
+        return (v0 + Math.sqrt(v0 * v0 + 2 * a * drop)) / a;
     }
 }

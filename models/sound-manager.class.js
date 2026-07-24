@@ -5,7 +5,6 @@
 class SoundManager {
     musicSounds = [];
     sfxSounds = [];
-    muted = false;
     musicMuted = false;
     sfxMuted = false;
     musicVolume = 0.5;
@@ -40,10 +39,10 @@ class SoundManager {
     updateSound(sound, type) {
         const factor = sound.volumeFactor ?? 1;
         if (type === 'music') {
-            sound.muted = this.muted || this.musicMuted;
+            sound.muted = this.musicMuted;
             sound.volume = this.musicVolume * factor;
         } else {
-            sound.muted = this.muted || this.sfxMuted;
+            sound.muted = this.sfxMuted;
             sound.volume = this.sfxVolume * factor;
         }
     }
@@ -60,10 +59,15 @@ class SoundManager {
      * Toggles muting all sounds and saves the state to local storage.
      */
     toggleMute() {
-        this.muted = !this.muted;
+        const target = !(this.musicMuted && this.sfxMuted);
+        this.musicMuted = target;
+        this.sfxMuted = target;
         this.updateAllSounds();
-        localStorage.setItem('muted', this.muted);
+        localStorage.setItem('musicMuted', this.musicMuted);
+        localStorage.setItem('sfxMuted', this.sfxMuted);
         this.toggleMuteIcon();
+        this.toggleMusicMuteIcon();
+        this.toggleSfxMuteIcon();
     }
 
     /**
@@ -110,7 +114,6 @@ class SoundManager {
      * Loads all mute states and volumes from local storage and applies them.
      */
     loadMuteState() {
-        this.muted = localStorage.getItem('muted') === 'true';
         this.musicMuted = localStorage.getItem('musicMuted') === 'true';
         this.sfxMuted = localStorage.getItem('sfxMuted') === 'true';
         this.musicVolume = localStorage.getItem('musicVolume') !== null
@@ -128,7 +131,7 @@ class SoundManager {
      */
     toggleMuteIcon() {
         document.querySelectorAll('.icon-mute').forEach(icon => {
-            icon.src = this.muted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg';
+            icon.src = (this.musicMuted && this.sfxMuted) ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg';
         });
     }
 

@@ -5,6 +5,7 @@ let keyboard = new Keyboard();
 let currentLevel = 0;
 let soundManager = new SoundManager();
 let skipResumeOnClose = false;
+let backgroundMusic;
 const orientationQuery = window.matchMedia('(orientation: portrait) and (max-width: 933px)');
 const keyMap = {
     'ArrowLeft': 'LEFT',
@@ -81,13 +82,8 @@ function closeDialog() {
  */
 document.addEventListener('DOMContentLoaded', (e) => {
     soundManager.loadMuteState();
-    const backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
+    backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
     backgroundMusic.loop = true;
-
-    const startMusicOnce = () => backgroundMusic.play();
-    document.addEventListener('click', startMusicOnce, { once: true });
-    document.addEventListener('keydown', startMusicOnce, { once: true });
-    document.addEventListener('touchstart', startMusicOnce, { once: true });
 
     document.getElementById('startGame').addEventListener('click', () => {
         init();
@@ -128,6 +124,7 @@ function init() {
     document.getElementById('settingsBtnGame').classList.remove('d_none');
     canvas = document.getElementById('canvas');
     toggleMobileButtons(true);
+    backgroundMusic.play();
     startLevel(currentLevel);
 }
 
@@ -181,6 +178,7 @@ function showEndscreen(win) {
  */
 function showHomeScreen() {
     if (world) world.stopGame();
+    backgroundMusic.pause();
     document.getElementById('canvas').classList.add('d_none');
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('startScreen').classList.remove('d_none');

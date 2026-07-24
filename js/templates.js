@@ -49,10 +49,10 @@ function getSettingsDialogTemplate() {
   return `
       <main>        
         <div class="settings__row">
-          <span class="settings__label">Vollbild</span>
-          <button class="button button__toggle" onclick="toggleFullscreen()">
-            <img class="settings__icon" src="../assets/icons/fullscreen.png" alt="">
-          </button>
+          <span class="settings__label">Sound</span>
+          <button class="button button__toggle" onclick="toggleMute()">
+        <img class="icon-mute settings__icon" src="${soundManager.musicMuted && soundManager.sfxMuted ? '../assets/icons/sound_off.svg' : '../assets/icons/sound_on.svg'}" alt="">
+        </button>
         </div>
         <div class="settings__slider">
           <div class="settings__row">
