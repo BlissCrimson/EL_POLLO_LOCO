@@ -92,8 +92,8 @@ button:hover {
 }
 
 .button__mobile {
-    width: 30px;
-    height: 30px;
+    width: 56px;
+    height: 56px;
     position: absolute;
     bottom: 3%;
     border-radius: 100%;

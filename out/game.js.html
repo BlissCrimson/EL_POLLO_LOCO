@@ -33,7 +33,10 @@ let keyboard = new Keyboard();
 let currentLevel = 0;
 let soundManager = new SoundManager();
 let skipResumeOnClose = false;
-const orientationQuery = window.matchMedia('(orientation: portrait) and (max-width: 933px)');
+let backgroundMusic;
+const mobilePortraitQuery = '(orientation: portrait) and (max-width: 933px), (orientation: portrait) and (hover: none) and (pointer: coarse)';
+const mobileLandscapeQuery = '(orientation: landscape) and (max-width: 933px), (orientation: landscape) and (hover: none) and (pointer: coarse)';
+const orientationQuery = window.matchMedia(mobilePortraitQuery);
 const keyMap = {
     'ArrowLeft': 'LEFT',
     'ArrowRight': 'RIGHT',
@@ -67,8 +70,8 @@ function startLevel(index) {
  */
 function openDialog(type) {
     const title = document.getElementById('dialogTitle');
-    const content = document.getElementById('dialogMain')
-    dialogTypes(type);
+    const content = document.getElementById('dialogMain');
+    dialogTypes(type, title, content);
     dialogRef = document.getElementById('dialogContent');
     dialogRef.showModal();
     if (world &amp;&amp; !world.stopped) {
@@ -80,7 +83,7 @@ function openDialog(type) {
  * Fills the dialog title and content based on the given type.
  * @param {string} type - Dialog type: 'settings', 'controlls' or 'impressum'.
  */
-function dialogTypest(type) {
+function dialogTypes(type, title, content) {
     if (type === 'settings') {
         title.textContent = 'SETTINGS';
         content.innerHTML = getSettingsDialogTemplate();
@@ -109,9 +112,9 @@ function closeDialog() {
  */
 document.addEventListener('DOMContentLoaded', (e) => {
     soundManager.loadMuteState();
-    const backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
+    backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
     backgroundMusic.loop = true;
-    backgroundMusic.play();
+
     document.getElementById('startGame').addEventListener('click', () => {
         init();
     });
@@ -128,12 +131,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
         }
     });
     document.querySelectorAll('.button__mobile').forEach(btn => {
+        const release = () => { keyboard[btn.dataset.key] = false; };
         btn.addEventListener('touchstart', () => {
             keyboard[btn.dataset.key] = true;
         });
-        btn.addEventListener('touchend', () => {
-            keyboard[btn.dataset.key] = false;
-        });
+        btn.addEventListener('touchend', release);
+        btn.addEventListener('touchcancel', release);
         btn.addEventListener('contextmenu', (e) => {
             e.preventDefault();
         })
@@ -151,6 +154,7 @@ function init() {
     document.getElementById('settingsBtnGame').classList.remove('d_none');
     canvas = document.getElementById('canvas');
     toggleMobileButtons(true);
+    backgroundMusic.play();
     startLevel(currentLevel);
 }
 
@@ -204,6 +208,7 @@ function showEndscreen(win) {
  */
 function showHomeScreen() {
     if (world) world.stopGame();
+    backgroundMusic.pause();
     document.getElementById('canvas').classList.add('d_none');
     document.getElementById('endScreen').classList.add('d_none');
     document.getElementById('startScreen').classList.remove('d_none');
@@ -263,7 +268,7 @@ orientationQuery.addEventListener('change', handleOrientationChange);
  */
 function scaleGame() {
     const wrapper = document.querySelector('.game-wrapper');
-    const isMobileLandscape = window.matchMedia('(orientation: landscape) and (max-width: 933px)').matches;
+    const isMobileLandscape = window.matchMedia(mobileLandscapeQuery).matches;
     if (!isMobileLandscape || document.fullscreenElement) {
         wrapper.style.transform = '';
         return;
@@ -304,13 +309,13 @@ function goHomeFromSettings() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#closeDialog">closeDialog</a></li><li><a href="global.html#dialogTypest">dialogTypest</a></li><li><a href="global.html#getControllsDialogTemplate">getControllsDialogTemplate</a></li><li><a href="global.html#getImpressumsDialogTemplate">getImpressumsDialogTemplate</a></li><li><a href="global.html#getSettingsDialogTemplate">getSettingsDialogTemplate</a></li><li><a href="global.html#goHomeFromSettings">goHomeFromSettings</a></li><li><a href="global.html#handleOrientationChange">handleOrientationChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#openDialog">openDialog</a></li><li><a href="global.html#restartFromSettings">restartFromSettings</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#scaleGame">scaleGame</a></li><li><a href="global.html#showEndscreen">showEndscreen</a></li><li><a href="global.html#showHomeScreen">showHomeScreen</a></li><li><a href="global.html#startLevel">startLevel</a></li><li><a href="global.html#toggleFullscreen">toggleFullscreen</a></li><li><a href="global.html#toggleMobileButtons">toggleMobileButtons</a></li><li><a href="global.html#toggleMute">toggleMute</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#closeDialog">closeDialog</a></li><li><a href="global.html#dialogTypes">dialogTypes</a></li><li><a href="global.html#getControllsDialogTemplate">getControllsDialogTemplate</a></li><li><a href="global.html#getImpressumsDialogTemplate">getImpressumsDialogTemplate</a></li><li><a href="global.html#getSettingsDialogTemplate">getSettingsDialogTemplate</a></li><li><a href="global.html#goHomeFromSettings">goHomeFromSettings</a></li><li><a href="global.html#handleOrientationChange">handleOrientationChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#openDialog">openDialog</a></li><li><a href="global.html#restartFromSettings">restartFromSettings</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#scaleGame">scaleGame</a></li><li><a href="global.html#showEndscreen">showEndscreen</a></li><li><a href="global.html#showHomeScreen">showHomeScreen</a></li><li><a href="global.html#startLevel">startLevel</a></li><li><a href="global.html#toggleFullscreen">toggleFullscreen</a></li><li><a href="global.html#toggleMobileButtons">toggleMobileButtons</a></li><li><a href="global.html#toggleMute">toggleMute</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Tue Jul 21 2026 09:55:00 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Fri Jul 24 2026 17:59:51 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

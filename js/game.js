@@ -6,7 +6,9 @@ let currentLevel = 0;
 let soundManager = new SoundManager();
 let skipResumeOnClose = false;
 let backgroundMusic;
-const orientationQuery = window.matchMedia('(orientation: portrait) and (max-width: 933px)');
+const mobilePortraitQuery = '(orientation: portrait) and (max-width: 933px), (orientation: portrait) and (hover: none) and (pointer: coarse)';
+const mobileLandscapeQuery = '(orientation: landscape) and (max-width: 933px), (orientation: landscape) and (hover: none) and (pointer: coarse)';
+const orientationQuery = window.matchMedia(mobilePortraitQuery);
 const keyMap = {
     'ArrowLeft': 'LEFT',
     'ArrowRight': 'RIGHT',
@@ -238,7 +240,7 @@ orientationQuery.addEventListener('change', handleOrientationChange);
  */
 function scaleGame() {
     const wrapper = document.querySelector('.game-wrapper');
-    const isMobileLandscape = window.matchMedia('(orientation: landscape) and (max-width: 933px)').matches;
+    const isMobileLandscape = window.matchMedia(mobileLandscapeQuery).matches;
     if (!isMobileLandscape || document.fullscreenElement) {
         wrapper.style.transform = '';
         return;
