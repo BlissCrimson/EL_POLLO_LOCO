@@ -228,7 +228,7 @@ class World {
             enemy.kill();
             this.character.speedY = 15;
         } else if (!enemy.lastHitCharacter || new Date().getTime() - enemy.lastHitCharacter > 1000) {
-            this.character.hit();
+            this.character.hit(20);
             this.statusbar[0].setPercentage(this.character.energy);
             enemy.lastHitCharacter = new Date().getTime();
         }

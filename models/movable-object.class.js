@@ -73,11 +73,12 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Reduces energy by 10 and records the hit time, used to trigger
-     * the hurt animation.
-     */
-    hit() {
-        this.energy -= 10
+  * Reduces energy by the given amount and records the hit time,
+  * used to trigger the hurt animation.
+  * @param {number} [amount=10] - How much energy to remove.
+  */
+    hit(amount = 10) {
+        this.energy -= amount;
         if (this.energy < 0) {
             this.energy = 0;
         } else {

@@ -28,7 +28,7 @@ button:hover {
 }
 
 .button__instructions {
-    padding: 0;
+    padding: 2px 6px;
     position: absolute;
     left: 2%;
     bottom: 20%;
@@ -46,7 +46,7 @@ button:hover {
 }
 
 .button__play {
-    padding: 0 2px;
+    padding: 0 5px;
     position: absolute;
     top: 47%;
     left: 31%;
@@ -59,11 +59,12 @@ button:hover {
     top: 2%;
     right: 1%;
     align-items: center;
+    padding: 2px 6px;
 }
 
 .button__impressum {
     font-size: 16px;
-    padding: 2px;
+    padding: 6px 12px;
     position: absolute;
     bottom: 12%;
     left: 50%;
@@ -118,10 +119,6 @@ button:hover {
 .button__mobile--attack {
     color: black;
     right: 5%;
-}
-
-.button__mobile {
-    display: flex;
 }
 
 .button__mute,

@@ -52,6 +52,10 @@
         margin-right: auto;
     }
 
+    .button__mobile {
+        display: flex;
+    }
+
     .impressum__body {
         .button__home {
             position: absolute;
