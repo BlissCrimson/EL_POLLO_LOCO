@@ -4,7 +4,6 @@
  */
 class World {
     character = new Character();
-
     statusbar = [
         new StatusHealth(),
         new StatusBottles(),
@@ -139,11 +138,11 @@ class World {
      */
     drawForegroundLayer() {
         this.ctx.translate(this.camera_x, 0);
-        this.addToMap(this.character);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
+        this.addToMap(this.character);   // zuletzt = ganz vorne
         this.ctx.translate(-this.camera_x, 0);
     }
 
@@ -306,7 +305,7 @@ class World {
                 this.canThrow = false;
                 setTimeout(() => {
                     this.canThrow = true;
-                }, 500);
+                }, 1500);
             }
         }
     }

@@ -1,4 +1,4 @@
-let dialogControlls;
+let dialogRef;
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -54,6 +54,8 @@ function openDialog(type) {
 /**
  * Fills the dialog title and content based on the given type.
  * @param {string} type - Dialog type: 'settings', 'controlls' or 'impressum'.
+ * @param {HTMLElement} title - Element that receives the dialog title.
+ * @param {HTMLElement} content - Element that receives the dialog's HTML content.
  */
 function dialogTypes(type, title, content) {
     if (type === 'settings') {
@@ -83,10 +85,7 @@ function closeDialog() {
  * @param {Event} e - DOMContentLoaded event.
  */
 document.addEventListener('DOMContentLoaded', (e) => {
-    soundManager.loadMuteState();
-    backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
-    backgroundMusic.loop = true;
-
+    initSounds();
     document.getElementById('startGame').addEventListener('click', () => {
         init();
     });
@@ -94,26 +93,54 @@ document.addEventListener('DOMContentLoaded', (e) => {
         if (e.target === document.getElementById('dialogContent')) closeDialog();
     });
     document.getElementById('dialogContent').addEventListener('close', () => {
-        if (skipResumeOnClose) {
-            skipResumeOnClose = false;
-            return;
-        }
-        if (world && !world.stopped) {
-            world.resumeGame();
-        }
+        dialogClosing();
     });
     document.querySelectorAll('.button__mobile').forEach(btn => {
-        const release = () => { keyboard[btn.dataset.key] = false; };
-        btn.addEventListener('touchstart', () => {
-            keyboard[btn.dataset.key] = true;
-        });
-        btn.addEventListener('touchend', release);
-        btn.addEventListener('touchcancel', release);
-        btn.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        })
+        mobileButtons(btn);
     });
 });
+
+/**
+ * Loads the saved mute state and registers the looping background
+ * music track.
+ */
+function initSounds() {
+    soundManager.loadMuteState();
+    backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
+    backgroundMusic.loop = true;
+}
+
+/**
+ * Resumes the paused game when a dialog is closed, unless the close
+ * was triggered by a restart/home action that should skip resuming.
+ */
+function dialogClosing() {
+    if (skipResumeOnClose) {
+        skipResumeOnClose = false;
+        return;
+    }
+    if (world && !world.stopped) {
+        world.resumeGame();
+    }
+}
+
+/**
+ * Registers touch listeners on a single mobile control button: sets
+ * the mapped keyboard key to true on touch start and back to false
+ * on touch end/cancel. Also suppresses the context menu on long press.
+ * @param {HTMLElement} btn - Button element with a `data-key` attribute.
+ */
+function mobileButtons(btn) {
+    const release = () => { keyboard[btn.dataset.key] = false; };
+    btn.addEventListener('touchstart', () => {
+        keyboard[btn.dataset.key] = true;
+    });
+    btn.addEventListener('touchend', release);
+    btn.addEventListener('touchcancel', release);
+    btn.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    })
+}
 
 /**
  * By click on start, the startscreen is closed and the canvas is running.

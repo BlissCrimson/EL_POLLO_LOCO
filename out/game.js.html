@@ -26,7 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>let dialogControlls;
+            <pre class="prettyprint source linenums"><code>let dialogRef;
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -82,6 +82,8 @@ function openDialog(type) {
 /**
  * Fills the dialog title and content based on the given type.
  * @param {string} type - Dialog type: 'settings', 'controlls' or 'impressum'.
+ * @param {HTMLElement} title - Element that receives the dialog title.
+ * @param {HTMLElement} content - Element that receives the dialog's HTML content.
  */
 function dialogTypes(type, title, content) {
     if (type === 'settings') {
@@ -111,10 +113,7 @@ function closeDialog() {
  * @param {Event} e - DOMContentLoaded event.
  */
 document.addEventListener('DOMContentLoaded', (e) => {
-    soundManager.loadMuteState();
-    backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
-    backgroundMusic.loop = true;
-
+    initSounds();
     document.getElementById('startGame').addEventListener('click', () => {
         init();
     });
@@ -122,26 +121,54 @@ document.addEventListener('DOMContentLoaded', (e) => {
         if (e.target === document.getElementById('dialogContent')) closeDialog();
     });
     document.getElementById('dialogContent').addEventListener('close', () => {
-        if (skipResumeOnClose) {
-            skipResumeOnClose = false;
-            return;
-        }
-        if (world &amp;&amp; !world.stopped) {
-            world.resumeGame();
-        }
+        dialogClosing();
     });
     document.querySelectorAll('.button__mobile').forEach(btn => {
-        const release = () => { keyboard[btn.dataset.key] = false; };
-        btn.addEventListener('touchstart', () => {
-            keyboard[btn.dataset.key] = true;
-        });
-        btn.addEventListener('touchend', release);
-        btn.addEventListener('touchcancel', release);
-        btn.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        })
+        mobileButtons(btn);
     });
 });
+
+/**
+ * Loads the saved mute state and registers the looping background
+ * music track.
+ */
+function initSounds() {
+    soundManager.loadMuteState();
+    backgroundMusic = soundManager.registerSound('assets/audio/background.mp3', 'music');
+    backgroundMusic.loop = true;
+}
+
+/**
+ * Resumes the paused game when a dialog is closed, unless the close
+ * was triggered by a restart/home action that should skip resuming.
+ */
+function dialogClosing() {
+    if (skipResumeOnClose) {
+        skipResumeOnClose = false;
+        return;
+    }
+    if (world &amp;&amp; !world.stopped) {
+        world.resumeGame();
+    }
+}
+
+/**
+ * Registers touch listeners on a single mobile control button: sets
+ * the mapped keyboard key to true on touch start and back to false
+ * on touch end/cancel. Also suppresses the context menu on long press.
+ * @param {HTMLElement} btn - Button element with a `data-key` attribute.
+ */
+function mobileButtons(btn) {
+    const release = () => { keyboard[btn.dataset.key] = false; };
+    btn.addEventListener('touchstart', () => {
+        keyboard[btn.dataset.key] = true;
+    });
+    btn.addEventListener('touchend', release);
+    btn.addEventListener('touchcancel', release);
+    btn.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    })
+}
 
 /**
  * By click on start, the startscreen is closed and the canvas is running.
@@ -309,13 +336,13 @@ function goHomeFromSettings() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#closeDialog">closeDialog</a></li><li><a href="global.html#dialogTypes">dialogTypes</a></li><li><a href="global.html#getControllsDialogTemplate">getControllsDialogTemplate</a></li><li><a href="global.html#getImpressumsDialogTemplate">getImpressumsDialogTemplate</a></li><li><a href="global.html#getSettingsDialogTemplate">getSettingsDialogTemplate</a></li><li><a href="global.html#goHomeFromSettings">goHomeFromSettings</a></li><li><a href="global.html#handleOrientationChange">handleOrientationChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#openDialog">openDialog</a></li><li><a href="global.html#restartFromSettings">restartFromSettings</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#scaleGame">scaleGame</a></li><li><a href="global.html#showEndscreen">showEndscreen</a></li><li><a href="global.html#showHomeScreen">showHomeScreen</a></li><li><a href="global.html#startLevel">startLevel</a></li><li><a href="global.html#toggleFullscreen">toggleFullscreen</a></li><li><a href="global.html#toggleMobileButtons">toggleMobileButtons</a></li><li><a href="global.html#toggleMute">toggleMute</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#closeDialog">closeDialog</a></li><li><a href="global.html#dialogClosing">dialogClosing</a></li><li><a href="global.html#dialogTypes">dialogTypes</a></li><li><a href="global.html#getControllsDialogTemplate">getControllsDialogTemplate</a></li><li><a href="global.html#getImpressumsDialogTemplate">getImpressumsDialogTemplate</a></li><li><a href="global.html#getSettingsDialogTemplate">getSettingsDialogTemplate</a></li><li><a href="global.html#goHomeFromSettings">goHomeFromSettings</a></li><li><a href="global.html#handleOrientationChange">handleOrientationChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initSounds">initSounds</a></li><li><a href="global.html#mobileButtons">mobileButtons</a></li><li><a href="global.html#openDialog">openDialog</a></li><li><a href="global.html#restartFromSettings">restartFromSettings</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#scaleGame">scaleGame</a></li><li><a href="global.html#showEndscreen">showEndscreen</a></li><li><a href="global.html#showHomeScreen">showHomeScreen</a></li><li><a href="global.html#startLevel">startLevel</a></li><li><a href="global.html#toggleFullscreen">toggleFullscreen</a></li><li><a href="global.html#toggleMobileButtons">toggleMobileButtons</a></li><li><a href="global.html#toggleMute">toggleMute</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Fri Jul 24 2026 17:59:51 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Fri Jul 24 2026 22:07:53 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

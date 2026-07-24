@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Keyboard.class.js</title>
+    <title>JSDoc: Source: cloud.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Keyboard.class.js</h1>
+    <h1 class="page-title">Source: cloud.class.js</h1>
 
     
 
@@ -26,27 +26,31 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Holds the current pressed/released state of all keys used to control the game.
- */
-class Keyboard {
-
-    LEFT = false;
-    RIGHT = false;
-    UP = false;
-    DOWN = false;
-    SPACE = false;
-    W = false;
-    A = false;
-    S = false;
-    D = false;
-    ENTER = false;
+            <pre class="prettyprint source linenums"><code>class Cloud extends MovableObject {
+    x = 0;
+    y = 0;
+    width = 720;
+    height = 480;
+    IMAGES_CLOUDS = [
+        'assets/img/5_background/layers/4_clouds/1.png',
+        'assets/img/5_background/layers/4_clouds/2.png'
+    ];
+    currentImage = 0;
+    constructor() {
+        super().loadImage('assets/img/5_background/layers/4_clouds/1.png');
+        this.loadImages(this.IMAGES_CLOUDS);
+        this.x = Math.random() * 500;
+        this.animate();
+    }
 
     /**
-     * Creates the keyboard state object with all keys initially unset.
+     * Starts the movement loop and the animation render loop.
      */
-    constructor() {
-
+    animate() {
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+        this.playAnimation(this.IMAGES_CLOUDS);
     }
 }</code></pre>
         </article>
