@@ -19,7 +19,7 @@ class ThrowableObject extends MovableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
-    RANGE = 340;
+    RANGE = 200;
 
     /**
      * Loads all images, registers the break sound and starts the throw.
@@ -31,8 +31,6 @@ class ThrowableObject extends MovableObject {
         this.loadImage(this.IMAGES_BOTTLE_ROTATION[0]);
         this.loadImages(this.IMAGES_BOTTLE_ROTATION);
         this.loadImages(this.IMAGES_BOTTLE_SPLASH);
-        this.x = 100;
-        this.y = 100;
         this.height = 50;
         this.width = 60;
         this.breakSound = soundManager.registerSound('assets/audio/bottle-break.mp3');

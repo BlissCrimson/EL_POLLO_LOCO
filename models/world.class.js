@@ -297,7 +297,11 @@ class World {
     checkThrowObjects() {
         if ((this.keyboard.Space || this.keyboard.S) && this.bottles > 0) {
             if (this.canThrow) {
-                let bottle = new ThrowableObject(this.character.x, this.character.y);
+                let throwX = this.character.otherDirection
+                    ? this.character.x - 20
+                    : this.character.x + this.character.width - 60;
+                let throwY = this.character.y + 100;
+                let bottle = new ThrowableObject(throwX, throwY);
                 this.throwableObjects.push(bottle);
                 this.bottles--;
                 let percentage = (this.bottles / this.totalBottles) * 100;
@@ -305,7 +309,7 @@ class World {
                 this.canThrow = false;
                 setTimeout(() => {
                     this.canThrow = true;
-                }, 1500);
+                }, 2000);
             }
         }
     }
