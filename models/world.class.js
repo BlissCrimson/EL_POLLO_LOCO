@@ -207,7 +207,7 @@ class World {
      */
     characterCollision() {
         this.level.enemies.forEach((enemy) => {
-            if (enemy.isDying || enemy.isDead()) return;
+            if (enemy.isDying || enemy.isDead() || enemy instanceof ChickenBoss) return;
             if (this.character.isColliding(enemy)) {
                 this.handleCharacterEnemyCollision(enemy);
             }
@@ -221,8 +221,7 @@ class World {
      */
     handleCharacterEnemyCollision(enemy) {
         const isJumpKill = this.character.speedY < 0 &&
-            this.character.y + this.character.height < enemy.y + enemy.height * 0.7 &&
-            !(enemy instanceof ChickenBoss);
+            this.character.y + this.character.height < enemy.y + enemy.height * 0.7;
         if (isJumpKill) {
             enemy.kill();
             this.character.speedY = 15;

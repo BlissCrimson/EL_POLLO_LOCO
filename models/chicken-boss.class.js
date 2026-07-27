@@ -55,18 +55,19 @@ class ChickenBoss extends MovableObject {
     ];
     currentImage = 0;
     hasSpottedCharacter = false;
-    attackInterval = 2000; 
+    attackInterval = 2000;
     isAttacking = false;
     introWalking = false;
-    introTargetX; 
+    introTargetX;
     // Intro walk speed from boss:
-    speed = 20; 
+    speed = 20;
     offset = {
         top: 62,
         bottom: 14,
         left: 25,
         right: 9
     };
+    hasHitCharacter = false;
 
     /**
      * Loads all animation images and sounds and positions the boss
@@ -101,8 +102,9 @@ class ChickenBoss extends MovableObject {
      */
     attack() {
         this.isAttacking = true;
+        this.hasHitCharacter = false;
         const frameDuration = 6000 / 60;
-        const jumpDistance = this.world.canvas.width * 0.3;
+        const jumpDistance = 40;
         const sequence = this.getAttackSequence();
         this.runAttackAnimation(sequence, frameDuration, jumpDistance);
     }
@@ -133,6 +135,7 @@ class ChickenBoss extends MovableObject {
         const attackAnimInterval = setInterval(() => {
             this.img = this.imageCache[sequence[step]];
             this.applyAttackJumpOffset(step, jumpDistance);
+            this.checkAttackHit(step);
             step++;
             if (step >= sequence.length) {
                 clearInterval(attackAnimInterval);
@@ -276,5 +279,21 @@ class ChickenBoss extends MovableObject {
         const char = this.world.character;
         this.world.arenaLeftBound = char.x - 100;
         this.world.arenaRightBound = char.x - 100 + this.world.canvas.width - char.width;
+    }
+
+    /**
+    * Damages the character once per attack, but only during the boss's
+    * forward lunge (the jump phase of the attack animation).
+    * @param {number} step - Current frame index of the attack animation.
+    */
+    checkAttackHit(step) {
+        const jumpStart = this.IMAGES_ATTACK_START.length;
+        const jumpEnd = jumpStart + this.IMAGES_ATTACK_JUMP.length;
+        const inLunge = step >= jumpStart && step < jumpEnd;
+        if (inLunge && !this.hasHitCharacter && this.world.character.isColliding(this)) {
+            this.world.character.hit(20);
+            this.world.statusbar[0].setPercentage(this.world.character.energy);
+            this.hasHitCharacter = true;
+        }
     }
 }
