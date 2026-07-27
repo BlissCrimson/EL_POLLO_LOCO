@@ -102,7 +102,7 @@ class ChickenBoss extends MovableObject {
     attack() {
         this.isAttacking = true;
         const frameDuration = 6000 / 60;
-        const jumpDistance = this.world.canvas.width * 0.4;
+        const jumpDistance = this.world.canvas.width * 0.3;
         const sequence = this.getAttackSequence();
         this.runAttackAnimation(sequence, frameDuration, jumpDistance);
     }
