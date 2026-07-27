@@ -14,7 +14,7 @@ button:hover {
 .button {
     letter-spacing: 1px;
     color: #7a3c00;
-    background: #362610;
+    background: #da2f11;
     box-shadow: 0 6px 0 #a07800, 0 7px 8px rgba(0, 0, 0, 0.4);
     transition: transform 0.08s, box-shadow 0.08s;
     font-size: 24px;
