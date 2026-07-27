@@ -7,7 +7,13 @@ function createLevel3() {
     const chickenAt = (x, speed) => Object.assign(new Chicken(), { x, speed });
     const chickenSmallAt = (x, speed) => Object.assign(new ChickenSmall(), { x, speed });
 
-    return new Level(
+    const boss = Object.assign(new ChickenBoss(), {
+        x: 900 + 719 * 4,
+        energy: 180,
+        attackInterval: 1400
+    });
+
+    const level = new Level(
         [   // enemies
             chickenAt(350, 0.25),
             chickenAt(550, 0.28),
@@ -18,7 +24,7 @@ function createLevel3() {
             chickenSmallAt(500, 1.0),
             chickenSmallAt(1000, 1.0),
             chickenSmallAt(1600, 1.0),
-            new ChickenBoss()
+            boss
         ],
         [   // clouds
             new Cloud()
@@ -82,7 +88,19 @@ function createLevel3() {
             new BackgroundObject('assets/img/5_background/layers/air.png', 719 * 3),
             new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 719 * 3),
             new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719 * 3),
-            new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719 * 3)
+            new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719 * 3),
+
+            new BackgroundObject('assets/img/5_background/layers/air.png', 719 * 4),
+            new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 719 * 4),
+            new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 719 * 4),
+            new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 719 * 4),
+
+            new BackgroundObject('assets/img/5_background/layers/air.png', 719 * 5),
+            new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 719 * 5),
+            new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719 * 5),
+            new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719 * 5)
         ]
     );
+    level.level_end_x = 3200;
+    return level;
 }

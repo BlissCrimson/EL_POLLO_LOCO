@@ -4,8 +4,8 @@
  * @returns {Level} The level 1 instance.
  */
 function createLevel1() {
-    const chickenAt = (x, speed) => Object.assign(new Chicken(), { x, speed });
-    const chickenSmallAt = (x, speed) => Object.assign(new ChickenSmall(), { x, speed });
+    const chickenAt = (x, speed) => Object.assign(new Chicken(), { x: x + (Math.random() * 60 - 30), speed });
+    const chickenSmallAt = (x, speed) => Object.assign(new ChickenSmall(), { x: x + (Math.random() * 60 - 30), speed });
 
     return new Level(
         [   // enemies 

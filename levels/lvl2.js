@@ -7,7 +7,13 @@ function createLevel2() {
     const chickenAt = (x, speed) => Object.assign(new Chicken(), { x, speed });
     const chickenSmallAt = (x, speed) => Object.assign(new ChickenSmall(), { x, speed });
 
-    return new Level(
+    const boss = Object.assign(new ChickenBoss(), {
+        x: 900 + 719 * 3,
+        energy: 140,
+        attackInterval: 1700
+    });
+
+    const level = new Level(
         [   // enemies 
             chickenAt(400, 0.20),
             chickenAt(650, 0.22),
@@ -16,7 +22,7 @@ function createLevel2() {
             chickenAt(1400, 0.28),
             chickenSmallAt(800, 0.8),
             chickenSmallAt(1600, 0.8),
-            new ChickenBoss()
+            boss
         ],
         [   // clouds
             new Cloud()
@@ -63,7 +69,14 @@ function createLevel2() {
             new BackgroundObject('assets/img/5_background/layers/air.png', 719 * 3),
             new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 719 * 3),
             new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719 * 3),
-            new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719 * 3)
+            new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719 * 3),
+
+            new BackgroundObject('assets/img/5_background/layers/air.png', 719 * 4),
+            new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 719 * 4),
+            new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 719 * 4),
+            new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 719 * 4)
         ]
     );
+    level.level_end_x = 2450;
+    return level;
 }
