@@ -11,13 +11,13 @@ class SoundManager {
     sfxVolume = 0.5;
 
     /**
- * Creates and registers a new sound, applying the current mute/volume
- * state for its type.
- * @param {string} path - Path to the audio file.
- * @param {string} [type='sfx'] - 'music' or 'sfx'.
- * @param {number} [volumeFactor=1] - Multiplier on top of the group volume.
- * @returns {HTMLAudioElement} The created audio element.
- */
+     * Creates and registers a new sound, applying the current mute/volume
+     * state for its type.
+     * @param {string} path - Path to the audio file.
+     * @param {string} [type='sfx'] - 'music' or 'sfx'.
+     * @param {number} [volumeFactor=1] - Multiplier on top of the group volume.
+     * @returns {HTMLAudioElement} The created audio element.
+     */
     registerSound(path, type = 'sfx', volumeFactor = 1) {
         let sound = new Audio(path);
         sound.volumeFactor = volumeFactor;

@@ -267,9 +267,9 @@ class ChickenBoss extends MovableObject {
     }
 
     /**
-         * Marks the character as spotted, plays the alert sound and starts
-         * walking the boss into the frame.
-         */
+     * Marks the character as spotted, plays the alert sound and starts
+     * walking the boss into the frame.
+     */
     handleCharacterSpotted() {
         this.hasSpottedCharacter = true;
         this.alertSound.play();

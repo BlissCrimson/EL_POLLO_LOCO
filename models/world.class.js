@@ -220,7 +220,7 @@ class World {
      * @param {MovableObject} enemy - The enemy the character collided with.
      */
     handleCharacterEnemyCollision(enemy) {
-        const isJumpKill = this.character.speedY < 0 &&
+        const isJumpKill = this.character.isAboveGround() &&
             this.character.y + this.character.height < enemy.y + enemy.height * 0.7;
         if (isJumpKill) {
             enemy.kill();
@@ -299,18 +299,27 @@ class World {
                 let throwX = this.character.otherDirection
                     ? this.character.x - 20
                     : this.character.x + this.character.width - 60;
-                let throwY = this.character.y + 100;
-                let bottle = new ThrowableObject(throwX, throwY);
-                this.throwableObjects.push(bottle);
-                this.bottles--;
-                let percentage = (this.bottles / this.totalBottles) * 100;
-                this.statusbar[1].setPercentage(percentage);
-                this.canThrow = false;
+                this.throwBottle(throwX);
                 setTimeout(() => {
                     this.canThrow = true;
                 }, 2000);
             }
         }
+    }
+
+    /**
+     * Throws a bottle and updates the bottle count and statusbar.
+     *
+     * @param {number} throwX - X-position where the bottle appears.
+     */
+    throwBottle(throwX) {
+        let throwY = this.character.y + 100;
+        let bottle = new ThrowableObject(throwX, throwY);
+        this.throwableObjects.push(bottle);
+        this.bottles--;
+        let percentage = (this.bottles / this.totalBottles) * 100;
+        this.statusbar[1].setPercentage(percentage);
+        this.canThrow = false;
     }
 
     /**

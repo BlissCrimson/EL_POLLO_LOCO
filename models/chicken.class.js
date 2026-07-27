@@ -17,9 +17,9 @@ class Chicken extends MovableObject {
     currentImage = 0;
 
     /**
-         * Spawns the chicken at a random x position with a random speed
-         * and starts its animation.
-         */
+     * Spawns the chicken at a random x position with a random speed
+     * and starts its animation.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
